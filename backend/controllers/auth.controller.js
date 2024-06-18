@@ -1,5 +1,6 @@
 import User from "../models/user.model.js";
 import bcrypt from 'bcryptjs';
+import { generateTokenAddSetCookie } from "../lib/ultis/generateToken.js";
 export const signup = async (req,res) =>{
     try{
         const{fullName,username,email,password}=res.body;
