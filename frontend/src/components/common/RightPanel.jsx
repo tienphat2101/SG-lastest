@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 
 import useFollow from "../../hooks/useFollow";
@@ -24,8 +24,9 @@ const RightPanel = () => {
 	});
 
 	const { follow, isPending } = useFollow();
+	const location = useLocation();
 
-	if (suggestedUsers?.length === 0) return <div className='md:w-64 w-0'></div>;
+	if (suggestedUsers?.length === 0 || location.pathname === '/podomoro') return null; //xóa who to follow khi ở trong podomoro page
 
 	return (
 		<div className='hidden lg:block my-4 mx-2'>

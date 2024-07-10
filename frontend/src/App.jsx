@@ -1,9 +1,12 @@
+
+
 import { Navigate, Route, Routes } from "react-router-dom";
 import HomePage from "./pages/home/HomePage";
 import LoginPage from "./pages/auth/login/LoginPage";
 import SignUpPage from "./pages/auth/signup/SignUpPage";
 import NotificationPage from "./pages/notification/NotificationPage";
 import ProfilePage from "./pages/profile/ProfilePage";
+// import PodomoroPage from "./pages/podomoro/PodomoroPage"; // Import PodomoroPage
 import Sidebar from "./components/common/Sidebar";
 import RightPanel from "./components/common/RightPanel";
 import { Toaster } from "react-hot-toast";
@@ -65,6 +68,7 @@ function App() {
                 <Route path='/signup' element={!authUser ? <SignUpPage /> : <Navigate to='/' />} />
                 <Route path='/notifications' element={authUser ? <NotificationPage /> : <Navigate to='/login' />} />
                 <Route path='/profile/:username' element={authUser ? <ProfilePage users={users} /> : <Navigate to='/login' />} />
+                {/*<Route path='/podomoro' element={<PodomoroPage />} /> */}
             </Routes>
             {authUser && <RightPanel />}
             <Toaster />

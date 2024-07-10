@@ -1,8 +1,8 @@
-import XSvg from "../svgs/X";
-
+import logo from "../svgs/main_logo.jpg";
+import React from "react";
 import { MdHomeFilled } from "react-icons/md";
 import { IoNotifications } from "react-icons/io5";
-import { FaUser } from "react-icons/fa";
+import { FaClock, FaUser } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import { BiLogOut } from "react-icons/bi";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
@@ -38,7 +38,11 @@ const Sidebar = () => {
 		<div className='md:flex-[2_2_0] w-18 max-w-52'>
 			<div className='sticky top-0 left-0 h-screen flex flex-col border-r border-gray-700 w-20 md:w-full'>
 				<Link to='/' className='flex justify-center md:justify-start'>
-					<XSvg className='px-2 w-12 h-12 rounded-full fill-white hover:bg-stone-900' />
+					<img
+						src={logo}
+						alt="Logo"
+						className='px-2 w-12 h-12 rounded-full hover:bg-stone-900 object-contain' 
+					/>
 				</Link>
 				<ul className='flex flex-col gap-3 mt-4'>
 					<li className='flex justify-center md:justify-start'>
@@ -67,6 +71,16 @@ const Sidebar = () => {
 						>
 							<FaUser className='w-6 h-6' />
 							<span className='text-lg hidden md:block'>Profile</span>
+						</Link>
+					</li>
+
+					<li className='flex justify-center md:justify-start'>
+						<Link
+							to={`/Podomoro/`}
+							className='flex gap-3 items-center hover:bg-stone-900 transition-all rounded-full duration-300 py-2 pl-2 pr-4 max-w-fit cursor-pointer'
+						>
+							<FaClock className='w-6 h-6' />
+							<span className='text-lg hidden md:block'>Podomoro</span>
 						</Link>
 					</li>
 				</ul>
