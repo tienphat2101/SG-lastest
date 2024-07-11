@@ -1,0 +1,71 @@
+#container {
+  display: -webkit-box;
+  display: flex;
+  height: 90vh;
+  -webkit-box-pack: center;
+  justify-content: center;
+  -webkit-box-align: center;
+  align-items: center;
+  flex-direction: column;
+  background: black;
+  color: white;
+  font-size: 25px;
+  text-align: center;
+}
+
+#container .main-title {
+  font: 200 50px/2.5 "Pacifico", Helvetica, sans-serif;
+  color: #fff;
+  font-size: 75px;
+  margin-bottom: 20px;
+}
+
+#container .length-control {
+  width: 250px;
+  margin-bottom: 20px;
+}
+
+#container button {
+  background: none;
+  outline: black;
+  border: none;
+  color: white;
+  cursor: pointer;
+}
+
+#container button i.fa {
+  margin: 0 20px; /* Thêm khoảng cách giữa các biểu tượng */
+}
+
+#container .btn-level,
+#container .length-control {
+  color: #fff;
+  padding: 10px;
+  display: inline-block;
+}
+
+#container .timer {
+  border: 10px solid white;
+  margin: 25px auto 20px auto;
+  width: 250px;
+  height: 250px;
+  border-radius: 100%;
+}
+
+#container .timer .timer-wrapper {
+  top: 70%;
+}
+
+#container .timer #time-left {
+  font-size: 80px;
+}
+
+#container .timer-control {
+  margin-top: 20px;
+}
+
+footer {
+  width: auto;
+  padding: 175px;
+  float: bottom;
+}

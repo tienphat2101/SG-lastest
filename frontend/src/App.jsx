@@ -4,7 +4,6 @@ import LoginPage from "./pages/auth/login/LoginPage";
 import SignUpPage from "./pages/auth/signup/SignUpPage";
 import NotificationPage from "./pages/notification/NotificationPage";
 import ProfilePage from "./pages/profile/ProfilePage";
-import Timer from './pages/Pomodoro/PomodoroPage';
 import Sidebar from "./components/common/Sidebar";
 import RightPanel from "./components/common/RightPanel";
 import { Toaster } from "react-hot-toast";
@@ -12,7 +11,7 @@ import { useQuery } from "@tanstack/react-query";
 import LoadingSpinner from "./components/common/LoadingSpinner";
 import React, { useEffect, useState } from 'react';
 import io from 'socket.io-client';
-
+import Timer from "./pages/Pomodoro/Pomodoro";
 const socket = io('http://localhost:5000'); 
 
 function App() {
@@ -59,7 +58,6 @@ function App() {
     }
 
     const isPomodoroPage = location.pathname === "/Pomodoro";
-
     return (
         <div className='flex max-w-6xl mx-auto'>
             {!isPomodoroPage && authUser && <Sidebar />}
@@ -69,7 +67,7 @@ function App() {
                 <Route path='/signup' element={!authUser ? <SignUpPage /> : <Navigate to='/' />} />
                 <Route path='/notifications' element={authUser ? <NotificationPage /> : <Navigate to='/login' />} />
                 <Route path='/profile/:username' element={authUser ? <ProfilePage users={users} /> : <Navigate to='/login' />} />
-                <Route path="/Pomodoro" element={<Timer/>} />
+                <Route path='/pomodoro' element = {<Timer/>}/>
             </Routes>
             {!isPomodoroPage && authUser && <RightPanel />}
             <Toaster />
