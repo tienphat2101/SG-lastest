@@ -1,12 +1,10 @@
-
-
-import { Navigate, Route, Routes } from "react-router-dom";
+import { Navigate, Route, Routes, useLocation } from "react-router-dom";
 import HomePage from "./pages/home/HomePage";
 import LoginPage from "./pages/auth/login/LoginPage";
 import SignUpPage from "./pages/auth/signup/SignUpPage";
 import NotificationPage from "./pages/notification/NotificationPage";
 import ProfilePage from "./pages/profile/ProfilePage";
-// import PodomoroPage from "./pages/podomoro/PodomoroPage"; // Import PodomoroPage
+import Timer from './pages/Pomodoro/PomodoroPage';
 import Sidebar from "./components/common/Sidebar";
 import RightPanel from "./components/common/RightPanel";
 import { Toaster } from "react-hot-toast";
@@ -19,6 +17,7 @@ const socket = io('http://localhost:5000');
 
 function App() {
     const [users, setUsers] = useState([]);
+    const location = useLocation(); // Use the useLocation hook
 
     useEffect(() => {
         socket.on('update_avatar', (updatedUser) => {
@@ -59,18 +58,20 @@ function App() {
         );
     }
 
+    const isPomodoroPage = location.pathname === "/Pomodoro";
+
     return (
         <div className='flex max-w-6xl mx-auto'>
-            {authUser && <Sidebar />}
+            {!isPomodoroPage && authUser && <Sidebar />}
             <Routes>
                 <Route path='/' element={authUser ? <HomePage /> : <Navigate to='/login' />} />
                 <Route path='/login' element={!authUser ? <LoginPage /> : <Navigate to='/' />} />
                 <Route path='/signup' element={!authUser ? <SignUpPage /> : <Navigate to='/' />} />
                 <Route path='/notifications' element={authUser ? <NotificationPage /> : <Navigate to='/login' />} />
                 <Route path='/profile/:username' element={authUser ? <ProfilePage users={users} /> : <Navigate to='/login' />} />
-                {/*<Route path='/podomoro' element={<PodomoroPage />} /> */}
+                <Route path="/Pomodoro" element={<Timer/>} />
             </Routes>
-            {authUser && <RightPanel />}
+            {!isPomodoroPage && authUser && <RightPanel />}
             <Toaster />
         </div>
     );
