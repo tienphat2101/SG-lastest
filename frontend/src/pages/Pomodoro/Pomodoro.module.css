@@ -1,12 +1,17 @@
+html, body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+}
+
 #container {
-  display: -webkit-box;
   display: flex;
-  height: 90vh;
-  -webkit-box-pack: center;
-  justify-content: center;
-  -webkit-box-align: center;
-  align-items: center;
   flex-direction: column;
+  height: 100vh;
+  width: 100vw;
+  justify-content: center;
+  align-items: center;
   background: black;
   color: white;
   font-size: 25px;
@@ -20,9 +25,15 @@
   margin-bottom: 20px;
 }
 
-#container .length-control {
-  width: 250px;
+#controls {
+  display: flex;
+  justify-content: space-between;
+  width: 80%;
   margin-bottom: 20px;
+}
+
+#controls .length-control {
+  width: 200px;
 }
 
 #container button {
@@ -50,10 +61,14 @@
   width: 250px;
   height: 250px;
   border-radius: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
 }
 
 #container .timer .timer-wrapper {
-  top: 70%;
+  position: absolute;
 }
 
 #container .timer #time-left {

@@ -12,7 +12,7 @@ class TimerLengthControl extends React.Component {
           value="-"
           onClick={this.props.onClick}
         >
-          <i class="fa fa-minus fa-2x"></i>
+          <i className="fa fa-minus"></i>
         </button>
         <div id={this.props.lengthID} className={styles.btnLevel}>
           {this.props.length}
@@ -23,7 +23,7 @@ class TimerLengthControl extends React.Component {
           value="+"
           onClick={this.props.onClick}
         >
-          <i class="fa fa-plus fa-2x"></i>
+          <i className="fa fa-plus"></i>
         </button>
       </div>
     );
@@ -173,24 +173,26 @@ class Timer extends React.Component {
     return (
       <div id={styles.container}>
         <div className={styles.mainTitle}>Pomodoro Clock</div>
-        <TimerLengthControl
-          titleID="break-label"
-          minID="break-decrement"
-          addID="break-increment"
-          lengthID="break-length"
-          title="Break Length"
-          onClick={this.setBreakLength}
-          length={this.state.breakLength}
-        />
-        <TimerLengthControl
-          titleID="session-label"
-          minID="session-decrement"
-          addID="session-increment"
-          lengthID="session-length"
-          title="Session Length"
-          onClick={this.setSessionLength}
-          length={this.state.sessionLength}
-        />
+        <div id={styles.controls}>
+          <TimerLengthControl
+            titleID="break-label"
+            minID="break-decrement"
+            addID="break-increment"
+            lengthID="break-length"
+            title="Break Length"
+            onClick={this.setBreakLength}
+            length={this.state.breakLength}
+          />
+          <TimerLengthControl
+            titleID="session-label"
+            minID="session-decrement"
+            addID="session-increment"
+            lengthID="session-length"
+            title="Session Length"
+            onClick={this.setSessionLength}
+            length={this.state.sessionLength}
+          />
+        </div>
         <div className={styles.timer}>
           <div className={styles.timerWrapper} style={this.state.alarmColor}>
             <div id="timer-label">{this.state.timerType}</div>
@@ -199,11 +201,11 @@ class Timer extends React.Component {
         </div>
         <div className={styles.timerControl}>
           <button id="start_stop" onClick={this.timerControl}>
-            <i className="fa fa-play fa-2x" />
-            <i className="fa fa-pause fa-2x" />
+            <i className="fa fa-play" />
+            <i className="fa fa-pause" />
           </button>
           <button id="reset" onClick={this.reset}>
-            <i className="fa fa-refresh fa-2x" />
+            <i className="fa fa-refresh" />
           </button>
         </div>
         <audio id="beep" preload="auto" src="https://www.soundjay.com/button/sounds/beep-07.mp3" />
