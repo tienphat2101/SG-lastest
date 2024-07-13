@@ -6,16 +6,18 @@ class TimerLengthControl extends React.Component {
     return (
       <div className={styles.lengthControl}>
         <div id={this.props.titleID}>{this.props.title}</div>
-        <button
-          id={this.props.minID}
-          className={styles.btnLevel}
-          value="-"
-          onClick={this.props.onClick}
-        >
-          <i className="fa fa-minus"></i>
-        </button>
-        <div id={this.props.lengthID} className={styles.btnLevel}>
-          {this.props.length}
+        <div className={styles.lengthWrapper}>
+          <button
+            id={this.props.minID}
+            className={styles.btnLevel}
+            value="-"
+            onClick={this.props.onClick}
+          >
+            <i className="fa fa-minus"></i>
+          </button>
+          <div id={this.props.lengthID} className={styles.lengthDisplay}>
+            {this.props.length}
+          </div>
         </div>
         <button
           id={this.props.addID}

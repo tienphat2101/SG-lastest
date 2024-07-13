@@ -4,7 +4,18 @@ html, body {
   width: 100%;
   height: 100%;
 }
+.lengthWrapper {
+  display: inline-block;
+}
 
+.lengthDisplay {
+  display: inline-block;
+  margin: 0 10px;
+}
+
+.btnLevel {
+  display: inline-block;
+}
 #container {
   display: flex;
   flex-direction: column;
