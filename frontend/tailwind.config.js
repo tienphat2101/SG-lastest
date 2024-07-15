@@ -13,11 +13,11 @@ export default {
     themes: [
       {
         mytheme: {
-          ...daisyUIThemes["light"],
-          primary: "#ffffff",
-          secondary: "#ffffff",
-          "primary-content": "#000000", // Text color on primary background
-          "secondary-content": "#000000", // Text color on secondary background
+          ...daisyUIThemes["dark"], // Sử dụng theme dark của DaisyUI làm cơ sở
+          primary: "#2D3748", // Màu chủ đạo (primary) tối
+          secondary: "#4A5568", // Màu phụ (secondary) tối
+          "primary-content": "#FFFFFF", // Màu chữ trên nền chủ đạo tối
+          "secondary-content": "#A0AEC0", // Màu chữ trên nền phụ tối
         },
       },
     ],
