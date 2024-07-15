@@ -56,11 +56,10 @@ function App() {
             </div>
         );
     }
-
-    const isPomodoroPage = location.pathname === "/Pomodoro";
+    {/* Đường dẫn tới các page*/}
     return (
         <div className='flex max-w-6xl mx-auto'>
-            {!isPomodoroPage && authUser && <Sidebar />}
+            {authUser && <Sidebar />}
             <Routes>
                 <Route path='/' element={authUser ? <HomePage /> : <Navigate to='/login' />} />
                 <Route path='/login' element={!authUser ? <LoginPage /> : <Navigate to='/' />} />
@@ -69,7 +68,7 @@ function App() {
                 <Route path='/profile/:username' element={authUser ? <ProfilePage users={users} /> : <Navigate to='/login' />} />
                 <Route path='/pomodoro' element = {<Timer/>}/>
             </Routes>
-            {!isPomodoroPage && authUser && <RightPanel />}
+            {authUser && <RightPanel />}
             <Toaster />
         </div>
     );
