@@ -12,6 +12,7 @@ import LoadingSpinner from "./components/common/LoadingSpinner";
 import React, { useEffect, useState } from 'react';
 import io from 'socket.io-client';
 import Timer from "./pages/Pomodoro/Pomodoro";
+import CalendarComponent from "./pages/Calendar/CalendarComponent";
 const socket = io('http://localhost:5000'); 
 
 function App() {
@@ -56,19 +57,20 @@ function App() {
             </div>
         );
     }
-    {/* Đường dẫn tới các page*/}
+
     return (
         <div className='flex max-w-6xl mx-auto'>
             {authUser && <Sidebar />}
-            <Routes>
-                <Route path='/' element={authUser ? <HomePage /> : <Navigate to='/login' />} />
-                <Route path='/login' element={!authUser ? <LoginPage /> : <Navigate to='/' />} />
-                <Route path='/signup' element={!authUser ? <SignUpPage /> : <Navigate to='/' />} />
-                <Route path='/notifications' element={authUser ? <NotificationPage /> : <Navigate to='/login' />} />
-                <Route path='/profile/:username' element={authUser ? <ProfilePage users={users} /> : <Navigate to='/login' />} />
-                <Route path='/pomodoro' element = {<Timer/>}/>
-            </Routes>
-            {authUser && <RightPanel />}
+                <Routes>
+                    <Route path='/' element={authUser ? <HomePage /> : <Navigate to='/login' />} />
+                    <Route path='/login' element={!authUser ? <LoginPage /> : <Navigate to='/' />} />
+                    <Route path='/signup' element={!authUser ? <SignUpPage /> : <Navigate to='/' />} />
+                    <Route path='/notifications' element={authUser ? <NotificationPage /> : <Navigate to='/login' />} />
+                    <Route path='/profile/:username' element={authUser ? <ProfilePage users={users} /> : <Navigate to='/login' />} />
+                    <Route path='/pomodoro' element={<Timer />} /> 
+                    <Route path='/calendar' element={<CalendarComponent />} />
+                </Routes>
+            {location.pathname !== '/calendar' && authUser && <RightPanel />}
             <Toaster />
         </div>
     );
