@@ -1,6 +1,7 @@
 import React from 'react';
 import styles from './Pomodoro.module.css';
-import ToDoList from './ToDoList';
+import ToDoList from './TodoList';
+
 class TimerLengthControl extends React.Component {
   render() {
     return (
@@ -59,17 +60,23 @@ class Timer extends React.Component {
   }
 
   setBreakLength(e) {
-    this.lengthControl('breakLength', e.currentTarget.value, this.state.breakLength, 'Session');
+    this.lengthControl('breakLength', e.currentTarget.value, this.state.breakLength, 'Break');
   }
 
   setSessionLength(e) {
-    this.lengthControl('sessionLength', e.currentTarget.value, this.state.sessionLength, 'Break');
+    this.lengthControl('sessionLength', e.currentTarget.value, this.state.sessionLength, 'Session');
   }
 
   lengthControl(stateToChange, sign, currentLength, timerType) {
     this.setState((prevState) => {
       const newLength = sign === '+' ? currentLength + 1 : currentLength - 1;
       if (newLength > 0 && newLength < 61 && prevState.timerState === 'stopped') {
+        if (prevState.timerType === timerType) {
+          return { 
+            [stateToChange]: newLength,
+            timer: newLength * 60 
+          };
+        }
         return { [stateToChange]: newLength };
       } else {
         return null;

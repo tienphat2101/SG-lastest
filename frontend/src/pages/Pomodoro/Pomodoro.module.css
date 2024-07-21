@@ -58,7 +58,7 @@ html, body {
 }
 
 #container button i.fa {
-  margin: 0 20px; /* Thêm khoảng cách giữa các biểu tượng */
+  margin: 20px; /* Thêm khoảng cách giữa các biểu tượng */
 }
 
 #container .btn-level,
