@@ -1,0 +1,56 @@
+.todoContainer {
+    margin: 20px;
+    padding: 10px;
+    border: 2px solid white;
+    border-radius: 10px;
+    color: white;
+    width: 300px;
+    text-align: center;
+  }
+  
+  .inputContainer {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 10px;
+  }
+  
+  .input {
+    padding: 5px;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    margin-right: 5px;
+    width: 70%;
+  }
+  
+  .addButton {
+    padding: 5px 10px;
+    font-size: 16px;
+    background-color: white;
+    color: black;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .taskList {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  .taskItem {
+    display: flex;
+    justify-content: space-between;
+    padding: 5px;
+    border-bottom: 1px solid white;
+    font-size:16px;
+  }
+  
+  .removeButton {
+    background: none;
+    border: none;
+    color: white;
+    cursor: pointer;
+    font-size: 16px;
+  }
+  

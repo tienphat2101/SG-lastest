@@ -1,6 +1,6 @@
 import React from 'react';
 import styles from './Pomodoro.module.css';
-
+import ToDoList from './ToDoList';
 class TimerLengthControl extends React.Component {
   render() {
     return (
@@ -210,6 +210,7 @@ class Timer extends React.Component {
             <i className="fa fa-refresh" />
           </button>
         </div>
+        <ToDoList />
         <audio id="beep" preload="auto" src="https://www.soundjay.com/button/sounds/beep-07.mp3" />
       </div>
     );

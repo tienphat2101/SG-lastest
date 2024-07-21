@@ -97,3 +97,6 @@ footer {
   padding: 175px;
   float: bottom;
 }
+.todoContainer {
+  margin-top: 20px; /* Add some space between timer and to-do list */
+}
