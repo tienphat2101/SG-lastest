@@ -100,3 +100,21 @@ footer {
 .todoContainer {
   margin-top: 20px; /* Add some space between timer and to-do list */
 }
+.timerControl {
+  display: flex;
+  justify-content: center; /* Centers the entire group of buttons */
+  align-items: center; /* Centers items vertically */
+}
+
+.timerControl button {
+  margin: 0 10px; /* Adds a base margin to all buttons */
+}
+
+#start_stop {
+  margin-right: 20px; /* Adds extra space to the right of the play/pause button */
+}
+
+#reset {
+  margin-left: 20px; /* Adds extra space to the left of the reset button */
+}
+

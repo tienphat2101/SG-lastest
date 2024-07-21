@@ -96,6 +96,7 @@ class Timer extends React.Component {
       }
     }
   }
+  
 
   beginCountDown() {
     this.setState({
@@ -210,8 +211,11 @@ class Timer extends React.Component {
         </div>
         <div className={styles.timerControl}>
           <button id="start_stop" onClick={this.timerControl}>
-            <i className="fa fa-play" />
-            <i className="fa fa-pause" />
+            {this.state.timerState === 'stopped' ? (
+              <i className="fa fa-play" />
+            ) : (
+              <i className="fa fa-pause" />
+            )}
           </button>
           <button id="reset" onClick={this.reset}>
             <i className="fa fa-refresh" />
