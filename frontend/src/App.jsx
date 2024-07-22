@@ -13,6 +13,7 @@ import React, { useEffect, useState } from 'react';
 import io from 'socket.io-client';
 import Timer from "./pages/Pomodoro/Pomodoro";
 import CalendarComponent from "./pages/Calendar/CalendarComponent";
+import ProgressBarPage from "./pages/progress/Progress";
 const socket = io('http://localhost:5000'); 
 
 function App() {
@@ -69,6 +70,7 @@ function App() {
                     <Route path='/profile/:username' element={authUser ? <ProfilePage users={users} /> : <Navigate to='/login' />} />
                     <Route path='/pomodoro' element={<Timer />} /> 
                     <Route path='/calendar' element={<CalendarComponent />} />
+                    <Route path='/progress' element={<ProgressBarPage />}/>
                 </Routes>
             {location.pathname !== '/calendar' && authUser && <RightPanel />}
             <Toaster />
