@@ -1,0 +1,113 @@
+.navbar {
+    position: fixed;
+    width: 98%;
+    top: 0;
+    background-color: #222;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 5px 20px;
+    transition: background-color 0.3s, padding 0.3s;
+    z-index: 1000;
+}
+
+.navbar.scrolled {
+    background-color: #000022;
+    padding: 0px 20px;
+}
+
+.navbar.transparent {
+    background-color: rgba(51, 51, 51, 0.5);
+    /* Màu nền trong suốt */
+}
+
+.navbar-logo {
+    display: flex;
+    align-items: center;
+}
+
+.navbar-logo img {
+    height: 60px;
+    margin-right: 20px;
+    margin-left: 140px;
+}
+
+.navbar-logo span {
+    font-size: 30px;
+    font-weight: bold;
+    color: white;
+}
+
+.navbar-menu {
+    list-style: none;
+    display: flex;
+    margin: 0;
+    padding: 0;
+    gap: 10px
+}
+
+.navbar-menu li {
+    margin: 0 10px;
+}
+
+.navbar-menu a {
+    color: white;
+    text-decoration: none;
+    font-size: 18px;
+    /* Điều chỉnh kích thước chữ tại đây */
+}
+
+/* Nếu bạn muốn thay đổi kích thước chữ cho riêng biệt từng mục, ví dụ: */
+.navbar-menu li a[href="#home"] {
+    font-size: 20px;
+    /* Kích thước chữ cho Trang Chủ */
+}
+
+.navbar-menu li a[href="#features"] {
+    font-size: 20px;
+    /* Kích thước chữ cho Tính năng */
+}
+
+.navbar-menu li a[href="#feedback"] {
+    font-size: 20px;
+    /* Kích thước chữ cho Góp Ý */
+}
+
+.navbar-menu li a[href="#info"] {
+    font-size: 20px;
+    /* Kích thước chữ cho Thông Tin */
+}
+
+.login-button {
+    font-size: 20px;
+    /* Kích thước chữ cho log in */
+    background-color: blue;
+    padding: 5px 10px;
+    border-radius: 5px;
+    color: white;
+}
+
+.nav-menu {
+    position: fixed;
+    left: -100%;
+    top: 90px;
+    flex-direction: column;
+    background-color: rgba(0, 0, 0, .9);
+    width: 100%;
+    height: 90vh;
+    z-index: 999;
+    text-align: center;
+    transition: .2s;
+}
+
+.nav-menu.active {
+    left: 0;
+}
+
+.nav-item {
+    margin: 1.5rem 0;
+}
+
+.header .navbar img {
+    width: 150px;
+}

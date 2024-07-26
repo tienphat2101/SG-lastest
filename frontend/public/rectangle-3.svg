@@ -1,0 +1,23 @@
+<svg width="850" height="254" viewBox="0 0 850 254" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g filter="url(#filter0_d_75_58)">
+<path d="M4 25C4 11.1929 15.1929 0 29 0H821C834.807 0 846 11.1929 846 25V221C846 234.807 834.807 246 821 246H29C15.1929 246 4 234.807 4 221V25Z" fill="white"/>
+<path d="M29 5H821C832.046 5 841 13.9543 841 25V221C841 232.046 832.046 241 821 241H29C17.9543 241 9 232.046 9 221V25C9 13.9543 17.9543 5 29 5Z" stroke="url(#paint0_angular_75_58)" stroke-width="10"/>
+</g>
+<defs>
+<filter id="filter0_d_75_58" x="0" y="0" width="850" height="254" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+<feFlood flood-opacity="0" result="BackgroundImageFix"/>
+<feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
+<feOffset dy="4"/>
+<feGaussianBlur stdDeviation="2"/>
+<feComposite in2="hardAlpha" operator="out"/>
+<feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.25 0"/>
+<feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_75_58"/>
+<feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_75_58" result="shape"/>
+</filter>
+<radialGradient id="paint0_angular_75_58" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(380.497 166.987) rotate(-14.5404) scale(418.45 70.7221)">
+<stop stop-color="#2D2C56"/>
+<stop offset="0.5" stop-color="#371186"/>
+<stop offset="1" stop-color="#980C79"/>
+</radialGradient>
+</defs>
+</svg>

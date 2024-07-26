@@ -1,15 +1,16 @@
 {
 	"name": "tienphat_twitter",
 	"version": "1.0.0",
-	"homepage" : "https://tienphat2101.github.io/SG-lastest/",
+	"homepage": "https://tienphat2101.github.io/SG-lastest/",
 	"description": "",
 	"main": "backend/server.js",
 	"scripts": {
 		"dev": "NODE_ENV=development nodemon backend/server.js",
 		"start": "NODE_ENV=production node backend/server.js",
 		"build": "npm install && npm install --prefix frontend && npm run build --prefix frontend",
-		"predeploy":"npm run build",
-		"deploy":"gh-pages -d frontend/dist"
+		"predeploy": "npm run build",
+		"start-projects": "concurrently \"npm run start\" \"cd F:\\official-information-page-master\\official-information-page-master && npm run start\" \"cd F:\\MAIN CALENDAR\\calendar1 && npm run start\"",
+		"deploy": "gh-pages -d frontend/dist"
 	},
 	"keywords": [],
 	"author": "",
@@ -29,6 +30,7 @@
 		"socket.io-client": "^4.7.5"
 	},
 	"devDependencies": {
+		"concurrently": "^8.2.2",
 		"nodemon": "^3.1.4"
 	}
 }
