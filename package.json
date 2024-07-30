@@ -9,7 +9,7 @@
 		"start": "NODE_ENV=production node backend/server.js",
 		"build": "npm install && npm install --prefix frontend && npm run build --prefix frontend",
 		"predeploy": "npm run build",
-		"start-projects": "concurrently \"npm run start\" \"cd F:\\official-information-page-master\\official-information-page-master && npm run start\" \"cd F:\\MAIN CALENDAR\\calendar1 && npm run start\"",
+		"start-projects": "concurrently \"npm run start\" \"cd F:\\official-information-page-master\\official-information-page-master && npm run start\"",
 		"deploy": "gh-pages -d frontend/dist"
 	},
 	"keywords": [],
