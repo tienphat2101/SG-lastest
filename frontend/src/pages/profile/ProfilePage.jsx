@@ -89,7 +89,7 @@ const ProfilePage = () => {
     }, [user, refetch]);
 
     return (
-        <div className='flex-[4_4_0]  border-r border-gray-700 min-h-screen '>
+        <div className='flex-[4_4_0] border-r border-gray-700 min-h-screen'>
             {isLoading || isRefetching ? (
                 <ProfileHeaderSkeleton />
             ) : (
@@ -184,7 +184,7 @@ const ProfilePage = () => {
                             </div>
                             <div className='flex gap-2 flex-wrap'>
                                 {user?.link && (
-                                    <div className='flex gap-1 items-center '>
+                                    <div className='flex gap-1 items-center'>
                                         <FaLink className='w-3 h-3 text-slate-500' />
                                         <a
                                             href={user?.link}
@@ -215,24 +215,30 @@ const ProfilePage = () => {
                         <div className='flex w-full border-b border-gray-700 mt-4'>
                             <div
                                 className={`flex justify-center flex-1 p-3 transition duration-300 relative cursor-pointer ${
-                                    feedType === "posts" ? "bg-secondary text-primary" : "hover:bg-secondary"
+                                    feedType === "posts" ? "text-white" : "text-slate-500 hover:text-white hover:bg-secondary"
                                 }`}
                                 onClick={() => setFeedType("posts")}
                             >
                                 Posts
                                 {feedType === "posts" && (
-                                    <div className='absolute bottom-0 w-10 h-1 rounded-full bg-primary' />
+                                    <div
+                                        className='absolute bottom-0 w-10 h-1 rounded-full'
+                                        style={{ backgroundColor: "#87df2c" }}
+                                    />
                                 )}
                             </div>
                             <div
                                 className={`flex justify-center flex-1 p-3 transition duration-300 relative cursor-pointer ${
-                                    feedType === "likes" ? "bg-secondary text-primary" : "hover:bg-secondary"
+                                    feedType === "likes" ? "text-white" : "text-slate-500 hover:text-white hover:bg-secondary"
                                 }`}
                                 onClick={() => setFeedType("likes")}
                             >
                                 Likes
                                 {feedType === "likes" && (
-                                    <div className='absolute bottom-0 w-10  h-1 rounded-full bg-primary' />
+                                    <div
+                                        className='absolute bottom-0 w-10 h-1 rounded-full'
+                                        style={{ backgroundColor: "#87df2c" }}
+                                    />
                                 )}
                             </div>
                         </div>
