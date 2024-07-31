@@ -1,10 +1,13 @@
 import { useState } from "react";
-
 import Posts from "../../components/common/Posts";
 import CreatePost from "./CreatePost";
 
 const HomePage = () => {
 	const [feedType, setFeedType] = useState("forYou");
+
+	const activeTabStyle = {
+		backgroundColor: "#87df2c",
+	};
 
 	return (
 		<>
@@ -19,7 +22,10 @@ const HomePage = () => {
 					>
 						For you
 						{feedType === "forYou" && (
-							<div className='absolute bottom-0 w-10  h-1 rounded-full bg-primary'></div>
+							<div
+								className='absolute bottom-0 w-10 h-1 rounded-full'
+								style={activeTabStyle}
+							></div>
 						)}
 					</div>
 					<div
@@ -28,7 +34,10 @@ const HomePage = () => {
 					>
 						Following
 						{feedType === "following" && (
-							<div className='absolute bottom-0 w-10  h-1 rounded-full bg-primary'></div>
+							<div
+								className='absolute bottom-0 w-10 h-1 rounded-full'
+								style={activeTabStyle}
+							></div>
 						)}
 					</div>
 				</div>
