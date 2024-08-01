@@ -62,21 +62,21 @@ function App() {
 
     return (
         <div className='flex max-w-6xl mx-auto'>
-            {authUser && <Sidebar />}
-                <Routes>
-                    <Route path='/' element={authUser ? <HomePage /> : <Navigate to='/login' />} />
-                    <Route path='/login' element={!authUser ? <LoginPage /> : <Navigate to='/' />} />
-                    <Route path='/signup' element={!authUser ? <SignUpPage /> : <Navigate to='/' />} />
-                    <Route path='/notifications' element={authUser ? <NotificationPage /> : <Navigate to='/login' />} />
-                    <Route path='/profile/:username' element={authUser ? <ProfilePage users={users} /> : <Navigate to='/login' />} />
-                    <Route path='/pomodoro' element={<Timer />} /> 
-                    <Route path='/calendar' element={<CalendarComponent />} />
-                    <Route path='/smart-list' element={<ProgressBarPage />}/>
-                    <Route path='/videocall' element={<Videocall/>}/>
-                </Routes>
-            {location.pathname !== '/calendar' && location.pathname !== '/videocall' && authUser && <RightPanel />}
-            <Toaster />
-        </div>
+        {authUser && <Sidebar />}
+        <Routes>
+            <Route path='/' element={authUser ? <HomePage /> : <Navigate to='/login' />} />
+            <Route path='/login' element={!authUser ? <LoginPage /> : <Navigate to='/' />} />
+            <Route path='/signup' element={!authUser ? <SignUpPage /> : <Navigate to='/' />} />
+            <Route path='/notifications' element={authUser ? <NotificationPage /> : <Navigate to='/login' />} />
+            <Route path='/profile/:username' element={authUser ? <ProfilePage users={users} /> : <Navigate to='/login' />} />
+            <Route path='/pomodoro' element={authUser ? <Timer /> : <Navigate to='/login' />} /> 
+            <Route path='/calendar' element={authUser ? <CalendarComponent /> : <Navigate to='/login' />} />
+            <Route path='/smart-list' element={authUser ? <ProgressBarPage /> : <Navigate to='/login' />}/>
+            <Route path='/videocall' element={authUser ? <Videocall /> : <Navigate to='/login' />}/>
+        </Routes>
+        {location.pathname !== '/calendar' && location.pathname !== '/videocall' && authUser && <RightPanel />}
+        <Toaster />
+    </div>
     );
 }
 export default App;             
