@@ -93,12 +93,12 @@ const CreatePost = () => {
 					<div className='flex gap-1 items-center'>
 						<CiImageOn
 							className='w-6 h-6 cursor-pointer'
-							style={{ fill: "#fff" }} // màu icon
+							style={{ fill: "#87df2c" }} // màu icon
 							onClick={() => imgRef.current.click()}
 						/>
 						<BsEmojiSmileFill
 							className='w-5 h-5 cursor-pointer'
-							style={{ fill: "#fff" }} // màu icon
+							style={{ fill: "#87df2c" }} // màu icon
 						/>
 					</div>
 					<input type='file' accept='image/*' hidden ref={imgRef} onChange={handleImgChange} />
