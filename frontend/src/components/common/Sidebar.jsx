@@ -2,7 +2,7 @@ import logo from "../svgs/main_logo.jpg";
 import React from "react";
 import { MdHomeFilled } from "react-icons/md";
 import { IoNotifications } from "react-icons/io5";
-import { FaBatteryQuarter, FaCalendar, FaClock, FaUser } from "react-icons/fa";
+import { FaBatteryQuarter, FaCalendar, FaClock, FaMeetup, FaRestroom, FaUser } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import { BiLogOut } from "react-icons/bi";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
@@ -99,6 +99,15 @@ const Sidebar = () => {
 						>
 							<FaBatteryQuarter className='w-6 h-6' />
 							<span className='text-lg hidden md:block'>Progress</span>
+						</Link>
+					</li>
+					<li className='flex justify-center md:justify-start'>
+						<Link
+							to={`/videocall`}
+							className='flex gap-3 items-center hover:bg-stone-900 transition-all rounded-full duration-300 py-2 pl-2 pr-4 max-w-fit cursor-pointer'
+						>
+							<FaMeetup className='w-6 h-6' />
+							<span className='text-lg hidden md:block'>Smart Room</span>
 						</Link>
 					</li>
 				</ul>

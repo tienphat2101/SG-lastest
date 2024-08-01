@@ -14,6 +14,7 @@ import io from 'socket.io-client';
 import Timer from "./pages/Pomodoro/Pomodoro";
 import CalendarComponent from "./pages/Calendar/CalendarComponent";
 import ProgressBarPage from "./pages/progress/Progress";
+import Videocall from "./pages/Video calls/videocall";
 const socket = io('http://localhost:5000'); 
 
 function App() {
@@ -71,8 +72,9 @@ function App() {
                     <Route path='/pomodoro' element={<Timer />} /> 
                     <Route path='/calendar' element={<CalendarComponent />} />
                     <Route path='/progress' element={<ProgressBarPage />}/>
+                    <Route path='/videocall' element={<Videocall/>}/>
                 </Routes>
-            {location.pathname !== '/calendar' && authUser && <RightPanel />}
+            {location.pathname !== '/calendar' && location.pathname !== '/videocall' && authUser && <RightPanel />}
             <Toaster />
         </div>
     );
