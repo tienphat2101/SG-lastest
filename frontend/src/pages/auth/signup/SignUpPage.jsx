@@ -42,10 +42,6 @@ const SignUpPage = () => {
 		},
 		onSuccess: () => {
 			toast.success("Account created successfully");
-
-			{
-				/* Added this line below, after recording the video. I forgot to add this while recording, sorry, thx. */
-			}
 			queryClient.invalidateQueries({ queryKey: ["authUser"] });
 		},
 	});
@@ -61,12 +57,24 @@ const SignUpPage = () => {
 
 	return (
 		<div className='max-w-screen-xl mx-auto flex h-screen px-10'>
-			<div className='flex-1 hidden lg:flex items-center  justify-center'>
-			<img src={logo} alt="Logo" className='lg:w-2/3' />
+			<div className='flex-1 hidden lg:flex items-center justify-center'>
+				<a href="https://smartgram-information-page.vercel.app/" rel="noopener noreferrer">
+					<img
+						src={logo}
+						alt="Logo"
+						className='w-full max-w-xl transition-transform transform hover:scale-105'
+					/>
+				</a>
 			</div>
 			<div className='flex-1 flex flex-col justify-center items-center'>
-				<form className='lg:w-2/3  mx-auto md:mx-20 flex gap-4 flex-col' onSubmit={handleSubmit}>
-				<img src={logo} alt="Logo" className='w-24 lg:hidden' />
+				<form className='lg:w-2/3 mx-auto md:mx-20 flex gap-4 flex-col' onSubmit={handleSubmit}>
+					<a href="https://smartgram-information-page.vercel.app/" rel="noopener noreferrer">
+						<img
+							src={logo}
+							alt="Logo"
+							className='w-10/12 lg:hidden transition-transform transform hover:scale-105'
+						/>
+					</a>
 					<h1 className='text-4xl font-extrabold text-white'>Join today.</h1>
 					<label className='input input-bordered rounded flex items-center gap-2'>
 						<MdOutlineMail />
@@ -114,7 +122,7 @@ const SignUpPage = () => {
 							value={formData.password}
 						/>
 					</label>
-					<button className='btn rounded-full btn-primary text-white'>
+					<button className='btn rounded-full bg-teal-500 text-white hover:bg-teal-600'>
 						{isPending ? "Loading..." : "Sign up"}
 					</button>
 					{isError && <p className='text-red-500'>{error.message}</p>}
@@ -122,7 +130,9 @@ const SignUpPage = () => {
 				<div className='flex flex-col lg:w-2/3 gap-2 mt-4'>
 					<p className='text-white text-lg'>Already have an account?</p>
 					<Link to='/login'>
-						<button className='btn rounded-full btn-primary text-white btn-outline w-full'>Sign in</button>
+						<button className='btn rounded-full bg-grey-500 text-white hover:bg-grey-600 btn-outline w-full'>
+							Sign in
+						</button>
 					</Link>
 				</div>
 			</div>
