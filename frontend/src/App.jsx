@@ -70,7 +70,7 @@ function App() {
                     <Route path='/profile/:username' element={authUser ? <ProfilePage users={users} /> : <Navigate to='/login' />} />
                     <Route path='/pomodoro' element={<Timer />} /> 
                     <Route path='/calendar' element={<CalendarComponent />} />
-                    <Route path='/progress' element={<ProgressBarPage />}/>
+                    <Route path='/smart-list' element={<ProgressBarPage />}/>
                 </Routes>
             {location.pathname !== '/calendar' && authUser && <RightPanel />}
             <Toaster />
