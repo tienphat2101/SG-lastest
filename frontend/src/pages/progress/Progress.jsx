@@ -4,7 +4,6 @@ function ProgressBarPage() {
   const [progressBars, setProgressBars] = useState([]);
   const [newProgressBarName, setNewProgressBarName] = useState('');
 
-
   const handleDeleteProgressBar = (progressBarId) => {
     setProgressBars((prevProgressBars) => prevProgressBars.filter((pb) => pb.id !== progressBarId));
   };
@@ -48,7 +47,7 @@ function ProgressBarPage() {
       if (task) {
         task.completed = false; // untick the task
       }
-      progressBar.tasks = progressBar.tasks.filter((task) => task.id!== taskId);
+      progressBar.tasks = progressBar.tasks.filter((task) => task.id !== taskId);
       const completedTasks = progressBar.tasks.filter((task) => task.completed);
       progressBar.progress = (completedTasks.length / progressBar.tasks.length) * 100 || 0;
       setProgressBars((prevProgressBars) => [...prevProgressBars]);
@@ -89,10 +88,18 @@ function ProgressBarPage() {
         >
           Create
         </button>
-  
-        <div style={{ maxHeight: '600px', overflowY: 'scroll' }}>
+
+        <div style={{ maxHeight: '600px', overflowY: 'scroll', marginTop: '40px' }}>
           {progressBars.map((progressBar) => (
-            <div key={progressBar.id} style={{ margin: '20px 0' }}>
+            <div
+              key={progressBar.id}
+              style={{
+                margin: '20px 0',
+                padding: '20px',
+                border: '2px solid #87df2c',
+                borderRadius: '10px',
+              }}
+            >
               <h2 style={{ fontSize: 24, fontWeight: 'bold', marginBottom: 10, textAlign: 'center' }}>
                 {progressBar.name}
               </h2>
@@ -110,7 +117,7 @@ function ProgressBarPage() {
                         marginRight: '10px',
                       }}
                     />
-                    <label for={`task-${task.id}`} style={{ fontSize: 18, flex: 1 }}>
+                    <label htmlFor={`task-${task.id}`} style={{ fontSize: 18, flex: 1 }}>
                       {task.name}
                     </label>
                     <button
@@ -143,7 +150,7 @@ function ProgressBarPage() {
               />
 
               <p style={{ fontSize: 18, fontWeight: 'bold', textAlign: 'center' }}>
-                  Progress: {Math.round(progressBar.progress)}%
+                You have completed {Math.round(progressBar.progress)}% of work
               </p>
 
               <input
@@ -173,36 +180,25 @@ function ProgressBarPage() {
                   backgroundColor: 'transparent',
                   border: 'none',
                   cursor: 'pointer',
+                  transition: 'background-color 0.3s, border-radius 0.3s',
+                  borderRadius: '5px',
+                }}
+                onMouseEnter={(e) => {
+                  e.target.style.backgroundColor = '#5cff66';
+                  e.target.style.borderRadius = '10px';
+                }}
+                onMouseLeave={(e) => {
+                  e.target.style.backgroundColor = 'transparent';
+                  e.target.style.borderRadius = '5px';
                 }}
               >
-                &#x2715; Delete This Work
+                ✔ Done
               </button>
-
             </div>
           ))}
-        </div>   
-        <style jsx>{`
-
-div::-webkit-scrollbar {
-
-  width: 0;
-
-  height: 0;
-
-}
-
-div {
-
-  -ms-overflow-style: none; /* for IE and Edge */
-
-  scrollbar-width: none; /* for Firefox */
-
-}
-
-`}</style>
+        </div>
       </div>
     </div>
-    
   );
 }
 
