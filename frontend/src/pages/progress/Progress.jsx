@@ -1,8 +1,19 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 function ProgressBarPage() {
   const [progressBars, setProgressBars] = useState([]);
   const [newProgressBarName, setNewProgressBarName] = useState('');
+
+  useEffect(() => {
+    // Load progress bars from localStorage on component mount
+    const storedProgressBars = JSON.parse(localStorage.getItem('progressBars')) || [];
+    setProgressBars(storedProgressBars);
+  }, []);
+
+  useEffect(() => {
+    // Save progress bars to localStorage whenever it changes
+    localStorage.setItem('progressBars', JSON.stringify(progressBars));
+  }, [progressBars]);
 
   const handleDeleteProgressBar = (progressBarId) => {
     setProgressBars((prevProgressBars) => prevProgressBars.filter((pb) => pb.id !== progressBarId));
