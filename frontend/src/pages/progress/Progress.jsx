@@ -1,22 +1,45 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import Cookies from 'js-cookie';
 
 function ProgressBarPage() {
   const [progressBars, setProgressBars] = useState([]);
   const [newProgressBarName, setNewProgressBarName] = useState('');
+
+  useEffect(() => {
+    try {
+      const storedProgressBars = JSON.parse(Cookies.get('progressBars') || '[]');
+      setProgressBars(storedProgressBars);
+    } catch (error) {
+      console.error('Lỗi khi tải progress bars từ cookies:', error);
+    }
+  }, []);
+
+  useEffect(() => {
+    try {
+      Cookies.set('progressBars', JSON.stringify(progressBars), { expires: 7 }); // Cookie hết hạn sau 7 ngày
+    } catch (error) {
+      console.error('Lỗi khi lưu progress bars vào cookies:', error);
+    }
+  }, [progressBars]);
 
   const handleDeleteProgressBar = (progressBarId) => {
     setProgressBars((prevProgressBars) => prevProgressBars.filter((pb) => pb.id !== progressBarId));
   };
 
   const handleCreateProgressBar = () => {
-    const newProgressBar = {
-      id: Date.now(),
-      name: newProgressBarName,
-      tasks: [],
-      progress: 0,
-    };
-    setProgressBars((prevProgressBars) => [...prevProgressBars, newProgressBar]);
-    setNewProgressBarName('');
+    try {
+      const newProgressBar = {
+        id: Date.now(),
+        name: newProgressBarName,
+        tasks: [],
+        progress: 0,
+      };
+      const updatedProgressBars = [...progressBars, newProgressBar];
+      setProgressBars(updatedProgressBars);
+      setNewProgressBarName('');
+    } catch (error) {
+      console.error('Lỗi khi tạo progress bar:', error);
+    }
   };
 
   const handleAddTask = (progressBarId, taskName) => {
@@ -81,9 +104,6 @@ function ProgressBarPage() {
             border: 'none',
             borderRadius: '5px',
             cursor: 'pointer',
-            ':hover': {
-              backgroundColor: '#3e8e41',
-            },
           }}
         >
           Create
