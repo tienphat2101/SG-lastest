@@ -5,10 +5,14 @@ function ProgressBarPage() {
   const [newProgressBarName, setNewProgressBarName] = useState('');
 
   useEffect(() => {
-    // Load progress bars from localStorage on component mount
-    const storedProgressBars = JSON.parse(localStorage.getItem('progressBars')) || [];
-    setProgressBars(storedProgressBars);
+    try {
+      const storedProgressBars = JSON.parse(localStorage.getItem('progressBars')) || [];
+      setProgressBars(storedProgressBars);
+    } catch (error) {
+      console.error('Lỗi khi tải progress bars từ localStorage:', error);
+    }
   }, []);
+  
 
   useEffect(() => {
     // Save progress bars to localStorage whenever it changes
@@ -20,14 +24,20 @@ function ProgressBarPage() {
   };
 
   const handleCreateProgressBar = () => {
-    const newProgressBar = {
-      id: Date.now(),
-      name: newProgressBarName,
-      tasks: [],
-      progress: 0,
-    };
-    setProgressBars((prevProgressBars) => [...prevProgressBars, newProgressBar]);
-    setNewProgressBarName('');
+    try {
+      const newProgressBar = {
+        id: Date.now(),
+        name: newProgressBarName,
+        tasks: [],
+        progress: 0,
+      };
+      const updatedProgressBars = [...progressBars, newProgressBar];
+      setProgressBars(updatedProgressBars);
+      localStorage.setItem('progressBars', JSON.stringify(updatedProgressBars));
+      setNewProgressBarName('');
+    } catch (error) {
+      console.error('Lỗi khi lưu progress bar vào localStorage:', error);
+    }
   };
 
   const handleAddTask = (progressBarId, taskName) => {
