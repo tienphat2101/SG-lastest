@@ -13,7 +13,13 @@ const HomePage = () => {
 		<>
 			<div className='flex-[4_4_0] mr-auto border-r border-gray-700 min-h-screen'>
 				{/* Header */}
-				<div className='flex w-full border-b border-gray-700'>
+				<div
+					className='sticky top-0 flex w-full border-b border-gray-700 z-10'
+					style={{
+						backgroundColor: "#1C1E21", // Màu nền
+						border: "2px solid #27403e", // Viền mỏng màu đỏ
+					}}
+				>
 					<div
 						className={
 							"flex justify-center flex-1 p-3 hover:bg-secondary transition duration-300 cursor-pointer relative"
@@ -42,7 +48,7 @@ const HomePage = () => {
 					</div>
 				</div>
 
-				{/*  CREATE POST INPUT */}
+				{/* CREATE POST INPUT */}
 				<CreatePost />
 
 				{/* POSTS */}
@@ -51,4 +57,5 @@ const HomePage = () => {
 		</>
 	);
 };
+
 export default HomePage;
