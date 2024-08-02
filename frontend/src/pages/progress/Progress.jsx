@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import Cookies from 'js-cookie';
 
 function ProgressBarPage() {
   const [progressBars, setProgressBars] = useState([]);
@@ -6,17 +7,19 @@ function ProgressBarPage() {
 
   useEffect(() => {
     try {
-      const storedProgressBars = JSON.parse(localStorage.getItem('progressBars')) || [];
+      const storedProgressBars = JSON.parse(Cookies.get('progressBars') || '[]');
       setProgressBars(storedProgressBars);
     } catch (error) {
-      console.error('Lỗi khi tải progress bars từ localStorage:', error);
+      console.error('Lỗi khi tải progress bars từ cookies:', error);
     }
   }, []);
-  
 
   useEffect(() => {
-    // Save progress bars to localStorage whenever it changes
-    localStorage.setItem('progressBars', JSON.stringify(progressBars));
+    try {
+      Cookies.set('progressBars', JSON.stringify(progressBars), { expires: 7 }); // Cookie hết hạn sau 7 ngày
+    } catch (error) {
+      console.error('Lỗi khi lưu progress bars vào cookies:', error);
+    }
   }, [progressBars]);
 
   const handleDeleteProgressBar = (progressBarId) => {
@@ -33,10 +36,9 @@ function ProgressBarPage() {
       };
       const updatedProgressBars = [...progressBars, newProgressBar];
       setProgressBars(updatedProgressBars);
-      localStorage.setItem('progressBars', JSON.stringify(updatedProgressBars));
       setNewProgressBarName('');
     } catch (error) {
-      console.error('Lỗi khi lưu progress bar vào localStorage:', error);
+      console.error('Lỗi khi tạo progress bar:', error);
     }
   };
 
@@ -102,9 +104,6 @@ function ProgressBarPage() {
             border: 'none',
             borderRadius: '5px',
             cursor: 'pointer',
-            ':hover': {
-              backgroundColor: '#3e8e41',
-            },
           }}
         >
           Create
