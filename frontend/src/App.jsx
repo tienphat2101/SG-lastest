@@ -6,6 +6,7 @@ import NotificationPage from "./pages/notification/NotificationPage";
 import ProfilePage from "./pages/profile/ProfilePage";
 import Sidebar from "./components/common/Sidebar";
 import RightPanel from "./components/common/RightPanel";
+import UserSearch from "./components/search/UserSearch"; // Import UserSearch component
 import { Toaster } from "react-hot-toast";
 import { useQuery } from "@tanstack/react-query";
 import LoadingSpinner from "./components/common/LoadingSpinner";
@@ -15,11 +16,13 @@ import Timer from "./pages/Pomodoro/Pomodoro";
 import CalendarComponent from "./pages/Calendar/CalendarComponent";
 import ProgressBarPage from "./pages/progress/Progress";
 import Videocall from "./pages/Video calls/videocall";
+import SearchResultsPage from "./pages/search/SearchResultsPage";
+
 const socket = io('http://localhost:5000'); 
 
 function App() {
     const [users, setUsers] = useState([]);
-    const location = useLocation(); // Use the useLocation hook
+    const location = useLocation();
 
     useEffect(() => {
         socket.on('update_avatar', (updatedUser) => {
@@ -62,21 +65,26 @@ function App() {
 
     return (
         <div className='flex max-w-6xl mx-auto'>
-        {authUser && <Sidebar />}
-        <Routes>
-            <Route path='/' element={authUser ? <HomePage /> : <Navigate to='/login' />} />
-            <Route path='/login' element={!authUser ? <LoginPage /> : <Navigate to='/' />} />
-            <Route path='/signup' element={!authUser ? <SignUpPage /> : <Navigate to='/' />} />
-            <Route path='/notifications' element={authUser ? <NotificationPage /> : <Navigate to='/login' />} />
-            <Route path='/profile/:username' element={authUser ? <ProfilePage users={users} /> : <Navigate to='/login' />} />
-            <Route path='/pomodoro' element={authUser ? <Timer /> : <Navigate to='/login' />} /> 
-            <Route path='/calendar' element={authUser ? <CalendarComponent /> : <Navigate to='/login' />} />
-            <Route path='/smart-list' element={authUser ? <ProgressBarPage /> : <Navigate to='/login' />}/>
-            <Route path='/videocall' element={authUser ? <Videocall /> : <Navigate to='/login' />}/>
-        </Routes>
-        {location.pathname !== '/calendar' && location.pathname !== '/videocall' && authUser && <RightPanel />}
-        <Toaster />
-    </div>
+            {authUser && <Sidebar />}
+            <div className="w-full">
+                {authUser && <UserSearch />} {/* Add UserSearch component here */}
+                <Routes>
+                    <Route path='/' element={authUser ? <HomePage /> : <Navigate to='/login' />} />
+                    <Route path='/login' element={!authUser ? <LoginPage /> : <Navigate to='/' />} />
+                    <Route path='/signup' element={!authUser ? <SignUpPage /> : <Navigate to='/' />} />
+                    <Route path='/notifications' element={authUser ? <NotificationPage /> : <Navigate to='/login' />} />
+                    <Route path='/profile/:username' element={authUser ? <ProfilePage users={users} /> : <Navigate to='/login' />} />
+                    <Route path='/pomodoro' element={authUser ? <Timer /> : <Navigate to='/login' />} /> 
+                    <Route path='/calendar' element={authUser ? <CalendarComponent /> : <Navigate to='/login' />} />
+                    <Route path='/smart-list' element={authUser ? <ProgressBarPage /> : <Navigate to='/login' />}/>
+                    <Route path='/videocall' element={authUser ? <Videocall /> : <Navigate to='/login' />}/>
+                    <Route path='/search' element={authUser ? <SearchResultsPage /> : <Navigate to='/login' />} />
+                </Routes>
+            </div>
+            {location.pathname !== '/calendar' && location.pathname !== '/videocall' && authUser && <RightPanel />}
+            <Toaster />
+        </div>
     );
 }
-export default App;             
+
+export default App;
