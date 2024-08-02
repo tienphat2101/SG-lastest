@@ -17,7 +17,7 @@ const HomePage = () => {
 					className='sticky top-0 flex w-full border-b border-gray-700 z-10'
 					style={{
 						backgroundColor: "#1C1E21", // Màu nền
-						border: "2px solid #27403e", // Viền mỏng màu đỏ
+						border: "2px solid #27403e", // Viền mỏng
 					}}
 				>
 					<div
