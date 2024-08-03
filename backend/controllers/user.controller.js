@@ -154,10 +154,17 @@ export const searchUsers = async (req, res) => {
     const { query } = req.query;
 
     try {
-        const users = await User.find({ username: { $regex: query, $options: 'i' } }).select("username fullName");
+        const users = await User.find({
+            $or: [
+                { username: { $regex: query, $options: 'i' } },
+                { fullName: { $regex: query, $options: 'i' } }
+            ]
+        }).select("username fullName");
+        
         res.status(200).json(users);
     } catch (error) {
         console.log("Error in searchUsers:", error.message);
         res.status(500).json({ error: error.message });
     }
 };
+

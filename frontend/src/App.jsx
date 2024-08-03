@@ -6,7 +6,6 @@ import NotificationPage from "./pages/notification/NotificationPage";
 import ProfilePage from "./pages/profile/ProfilePage";
 import Sidebar from "./components/common/Sidebar";
 import RightPanel from "./components/common/RightPanel";
-import UserSearch from "./components/search/UserSearch"; // Import UserSearch component
 import { Toaster } from "react-hot-toast";
 import { useQuery } from "@tanstack/react-query";
 import LoadingSpinner from "./components/common/LoadingSpinner";
@@ -67,7 +66,6 @@ function App() {
         <div className='flex max-w-6xl mx-auto'>
             {authUser && <Sidebar />}
             <div className="w-full">
-                {authUser && <UserSearch />} {/* Add UserSearch component here */}
                 <Routes>
                     <Route path='/' element={authUser ? <HomePage /> : <Navigate to='/login' />} />
                     <Route path='/login' element={!authUser ? <LoginPage /> : <Navigate to='/' />} />

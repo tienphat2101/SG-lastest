@@ -1,61 +1,62 @@
-import { useState } from "react";
+import { useState } from 'react';
 import Posts from "../../components/common/Posts";
 import CreatePost from "./CreatePost";
+import SearchBar from "../../components/search/UserSearch"; // Import SearchBar component
 
 const HomePage = () => {
-	const [feedType, setFeedType] = useState("forYou");
+    const [feedType, setFeedType] = useState("forYou");
 
-	const activeTabStyle = {
-		backgroundColor: "#87df2c",
-	};
+    const activeTabStyle = {
+        backgroundColor: "#87df2c",
+    };
 
-	return (
-		<>
-			<div className='flex-[4_4_0] mr-auto border-r border-gray-700 min-h-screen'>
-				{/* Header */}
-				<div
-					className='sticky top-0 flex w-full border-b border-gray-700 z-10'
-					style={{
-						backgroundColor: "#1C1E21", // Màu nền
-						border: "2px solid #27403e", // Viền mỏng
-					}}
-				>
-					<div
-						className={
-							"flex justify-center flex-1 p-3 hover:bg-secondary transition duration-300 cursor-pointer relative"
-						}
-						onClick={() => setFeedType("forYou")}
-					>
-						For you
-						{feedType === "forYou" && (
-							<div
-								className='absolute bottom-0 w-10 h-1 rounded-full'
-								style={activeTabStyle}
-							></div>
-						)}
-					</div>
-					<div
-						className='flex justify-center flex-1 p-3 hover:bg-secondary transition duration-300 cursor-pointer relative'
-						onClick={() => setFeedType("following")}
-					>
-						Following
-						{feedType === "following" && (
-							<div
-								className='absolute bottom-0 w-10 h-1 rounded-full'
-								style={activeTabStyle}
-							></div>
-						)}
-					</div>
-				</div>
+    return (
+        <>
+            <div className='flex-[4_4_0] mr-auto border-r border-gray-700 min-h-screen'>
+                {/* SEARCH BAR - only on mobile devices */}
+                <div className='block md:hidden p-3'>
+                    <SearchBar />
+                </div>
 
-				{/* CREATE POST INPUT */}
-				<CreatePost />
+                {/* Header */}
+                <div className='sticky top-0 w-full border-b border-gray-700 z-10' style={{ backgroundColor: "#1C1E21" }}>
+                    {/* Tabs */}
+                    <div className='flex w-full'>
+                        <div
+                            className='flex justify-center flex-1 p-3 hover:bg-secondary transition duration-300 cursor-pointer relative'
+                            onClick={() => setFeedType("forYou")}
+                        >
+                            For you
+                            {feedType === "forYou" && (
+                                <div
+                                    className='absolute bottom-0 w-10 h-1 rounded-full'
+                                    style={activeTabStyle}
+                                ></div>
+                            )}
+                        </div>
+                        <div
+                            className='flex justify-center flex-1 p-3 hover:bg-secondary transition duration-300 cursor-pointer relative'
+                            onClick={() => setFeedType("following")}
+                        >
+                            Following
+                            {feedType === "following" && (
+                                <div
+                                    className='absolute bottom-0 w-10 h-1 rounded-full'
+                                    style={activeTabStyle}
+                                ></div>
+                            )}
+                        </div>
+                    </div>
+                </div>
 
-				{/* POSTS */}
-				<Posts feedType={feedType} />
-			</div>
-		</>
-	);
+                {/* CREATE POST INPUT */}
+                <CreatePost />
+
+                {/* POSTS */}
+                <Posts feedType={feedType} />
+            </div>
+        </>
+    );
 };
 
 export default HomePage;
