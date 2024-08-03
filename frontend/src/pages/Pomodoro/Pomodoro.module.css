@@ -4,6 +4,7 @@ html, body {
   width: 100%;
   height: 100%;
 }
+
 .lengthWrapper {
   display: inline-block;
 }
@@ -16,11 +17,14 @@ html, body {
 .btnLevel {
   display: inline-block;
 }
+
 #container {
   display: flex;
   flex-direction: column;
   height: 100vh;
-  width: 100vw;
+  max-width: 800px; /* Đặt chiều rộng tối đa */
+  width: 100%; /* Đảm bảo container sử dụng toàn bộ chiều rộng của viewport */
+  margin: 0 auto; /* Căn giữa container */
   justify-content: center;
   align-items: center;
   color: white;
@@ -38,12 +42,13 @@ html, body {
 #controls {
   display: flex;
   justify-content: space-between;
-  width: 80%;
+  width: 100%; /* Đảm bảo phần tử chiếm toàn bộ chiều rộng của container */
+  max-width: 600px; /* Đặt chiều rộng tối đa cho controls */
   margin-bottom: 20px;
 }
 
 #controls .length-control {
-  width: 200px;
+  width: 180px; /* Điều chỉnh kích thước của các phần tử điều khiển chiều dài */
   display: flex;
   align-items: center;
   justify-content: center;
@@ -71,8 +76,8 @@ html, body {
 #container .timer {
   border: 10px solid white;
   margin: 25px auto 20px auto;
-  width: 250px;
-  height: 250px;
+  width: 200px; /* Giảm kích thước của đồng hồ */
+  height: 200px; /* Giảm kích thước của đồng hồ */
   border-radius: 100%;
   display: flex;
   align-items: center;
@@ -97,9 +102,11 @@ footer {
   padding: 175px;
   float: bottom;
 }
+
 .todoContainer {
   margin-top: 20px; /* Add some space between timer and to-do list */
 }
+
 .timerControl {
   display: flex;
   justify-content: center; /* Centers the entire group of buttons */
@@ -117,4 +124,3 @@ footer {
 #reset {
   margin-left: 20px; /* Adds extra space to the left of the reset button */
 }
-

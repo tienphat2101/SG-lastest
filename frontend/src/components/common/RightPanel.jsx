@@ -27,7 +27,7 @@ const RightPanel = () => {
     const { follow, isPending } = useFollow();
     const location = useLocation();
 
-    // if (suggestedUsers?.length === 0 || location.pathname === '/Pomodoro') return null; //xóa who to follow khi ở trong podomoro page
+    if (suggestedUsers?.length === 0 || location.pathname === '/pomodoro') return null; //xóa who to follow khi ở trong podomoro page
 
     return (
         <div className='hidden lg:block my-4 mx-2'>
