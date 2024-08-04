@@ -1,42 +1,26 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
+import { FaArrowRight } from 'react-icons/fa'; // Sử dụng icon arrow để giống nút tìm kiếm
 
 const Videocall = () => {
-  const [containerStyle, setContainerStyle] = useState({});
+  const [isClicked, setIsClicked] = useState(false);
 
-  useEffect(() => {
-    const handleResize = () => {
-      const width = window.innerWidth;
-      setContainerStyle({
-        width: '100%',
-        maxWidth: width > 768 ? '1200px' : '100%', // Chiều rộng tối đa dựa trên kích thước cửa sổ
-        margin: '0 auto',
-        height: '100vh',
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        overflow: 'hidden',
-      });
-    };
-
-    window.addEventListener('resize', handleResize);
-    handleResize(); // Cập nhật style khi component mount
-
-    return () => window.removeEventListener('resize', handleResize);
-  }, []);
-
-  const iframeStyle = {
-    width: '100%',
-    height: '100%',
-    border: 'none',
+  const handleClick = () => {
+    setIsClicked(true);
+    setTimeout(() => {
+      setIsClicked(false);
+      window.open('https://video-call-mumble.vercel.app/', '_blank');
+    }, 300); // Thời gian animation
   };
 
   return (
-    <div style={containerStyle}>
-      <iframe
-        src="https://video-call-mumble.vercel.app/"
-        style={iframeStyle}
-        title="Video call"
-      />
+    <div className="relative flex items-center justify-center h-screen">
+      <button
+        onClick={handleClick}
+        className={`flex items-center bg-[#87DF2C] text-white px-4 py-2 rounded-md text-sm font-bold transition-transform duration-300 ease-in-out transform ${isClicked ? 'scale-95 opacity-80' : ''} hover:bg-[#66c22f] shadow-md hover:shadow-lg`}
+      >
+        Connect to SmartRoom
+        <FaArrowRight className="ml-2" />
+      </button>
     </div>
   );
 };

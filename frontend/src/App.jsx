@@ -81,7 +81,7 @@ function App() {
                     <Route path='/flashcard' element={authUser ? <Flashcard /> : <Navigate to='/login' />}/>
                 </Routes>
             </div>
-            {location.pathname !== '/calendar' && location.pathname !== '/videocall' && authUser && <RightPanel />}
+            {location.pathname !== '/calendar' && authUser && <RightPanel />}
             <Toaster />
         </div>
     );
