@@ -7,6 +7,7 @@ import { Link } from "react-router-dom";
 import { BiLogOut } from "react-icons/bi";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import toast from "react-hot-toast";
+import { FaNoteSticky } from "react-icons/fa6";
 
 const Sidebar = () => {
 	const queryClient = useQueryClient();
@@ -108,6 +109,15 @@ const Sidebar = () => {
 						>
 							<FaMeetup className='w-6 h-6' />
 							<span className='text-lg hidden md:block'>Smart Room</span>
+						</Link>
+					</li>
+					<li className='flex justify-center md:justify-start'>
+						<Link
+							to={`/flashcard`}
+							className='flex gap-3 items-center hover:bg-lime-800 transition-all rounded-full duration-300 py-2 pl-2 pr-4 max-w-fit cursor-pointer'
+						>
+							<FaNoteSticky className='w-6 h-6' />
+							<span className='text-lg hidden md:block'>Flash Card</span>
 						</Link>
 					</li>
 				</ul>

@@ -16,6 +16,7 @@ import CalendarComponent from "./pages/Calendar/CalendarComponent";
 import ProgressBarPage from "./pages/progress/Progress";
 import Videocall from "./pages/Video calls/videocall";
 import SearchResultsPage from "./pages/search/SearchResultsPage";
+import Flashcard from "./pages/Flashcard/flashcard";
 
 const socket = io('http://localhost:5000'); 
 
@@ -77,6 +78,7 @@ function App() {
                     <Route path='/smart-list' element={authUser ? <ProgressBarPage /> : <Navigate to='/login' />}/>
                     <Route path='/videocall' element={authUser ? <Videocall /> : <Navigate to='/login' />}/>
                     <Route path='/search' element={authUser ? <SearchResultsPage /> : <Navigate to='/login' />} />
+                    <Route path='/flashcard' element={authUser ? <Flashcard /> : <Navigate to='/login' />}/>
                 </Routes>
             </div>
             {location.pathname !== '/calendar' && location.pathname !== '/videocall' && authUser && <RightPanel />}

@@ -29,6 +29,7 @@ const RightPanel = () => {
 
     if (suggestedUsers?.length === 0 || location.pathname === '/pomodoro') return null; //xóa who to follow khi ở trong podomoro page
     if (suggestedUsers?.length === 0 || location.pathname === '/smart-list') return null; //xóa who to follow khi ở trong smartlist
+    if (suggestedUsers?.length === 0 || location.pathname === '/flashcard') return null;
 
     return (
         <div className='hidden lg:block my-4 mx-2'>
