@@ -5,6 +5,7 @@ import io from "socket.io-client";
 import Posts from "../../components/common/Posts";
 import ProfileHeaderSkeleton from "../../components/skeletons/ProfileHeaderSkeleton";
 import EditProfileModal from "./EditProfileModal";
+import FollowingModal from "./FollowingModal"; // Import component mới
 
 import { POSTS } from "../../utils/db/dummy";
 
@@ -24,6 +25,7 @@ const ProfilePage = () => {
     const [coverImg, setCoverImg] = useState(null);
     const [profileImg, setProfileImg] = useState(null);
     const [feedType, setFeedType] = useState("posts");
+    const [isFollowingModalOpen, setIsFollowingModalOpen] = useState(false);
 
     const coverImgRef = useRef(null);
     const profileImgRef = useRef(null);
@@ -202,7 +204,10 @@ const ProfilePage = () => {
                                 </div>
                             </div>
                             <div className='flex gap-2'>
-                                <div className='flex gap-1 items-center'>
+                                <div
+                                    className='flex gap-1 items-center cursor-pointer'
+                                    onClick={() => setIsFollowingModalOpen(true)}
+                                >
                                     <span className='font-bold text-xs'>{user?.following.length}</span>
                                     <span className='text-slate-500 text-xs'>Following</span>
                                 </div>
@@ -246,6 +251,11 @@ const ProfilePage = () => {
                 )}
                 <Posts feedType={feedType} username={username} userId={user?._id} />
             </div>
+            <FollowingModal
+                isOpen={isFollowingModalOpen}
+                onClose={() => setIsFollowingModalOpen(false)}
+                userId={user?._id}
+            />
         </div>
     );
 };
