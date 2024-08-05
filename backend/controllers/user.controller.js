@@ -165,6 +165,22 @@ export const getFollowingList = async (req, res) => {
         res.status(500).json({ error: error.message });
     }
 };
+export const getFollowersList = async (req, res) => {
+    try {
+        const userId = req.params.userId;
+        // Tìm người dùng theo ID và làm nổi bật trường "followers"
+        const user = await User.findById(userId).populate('followers'); // Chắc chắn rằng bạn đã thiết lập schema đúng
+
+        if (!user) {
+            return res.status(404).json({ error: 'User not found' });
+        }
+
+        res.status(200).json(user.followers);
+    } catch (error) {
+        console.log("Error in getFollowersList:", error.message);
+        res.status(500).json({ error: error.message });
+    }
+};
 // Hàm tìm kiếm người dùng
 export const searchUsers = async (req, res) => {
     const { query } = req.query;

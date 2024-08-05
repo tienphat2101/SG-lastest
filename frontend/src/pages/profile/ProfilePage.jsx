@@ -5,7 +5,8 @@ import io from "socket.io-client";
 import Posts from "../../components/common/Posts";
 import ProfileHeaderSkeleton from "../../components/skeletons/ProfileHeaderSkeleton";
 import EditProfileModal from "./EditProfileModal";
-import FollowingModal from "./FollowingModal"; // Import component mới
+import FollowingModal from "./FollowingModal";
+import FollowersModal from "./FollowersModal"; // Import FollowersModal mới
 
 import { POSTS } from "../../utils/db/dummy";
 
@@ -26,6 +27,7 @@ const ProfilePage = () => {
     const [profileImg, setProfileImg] = useState(null);
     const [feedType, setFeedType] = useState("posts");
     const [isFollowingModalOpen, setIsFollowingModalOpen] = useState(false);
+    const [isFollowersModalOpen, setIsFollowersModalOpen] = useState(false); // Thêm state modal followers
 
     const coverImgRef = useRef(null);
     const profileImgRef = useRef(null);
@@ -211,7 +213,10 @@ const ProfilePage = () => {
                                     <span className='font-bold text-xs'>{user?.following.length}</span>
                                     <span className='text-slate-500 text-xs'>Following</span>
                                 </div>
-                                <div className='flex gap-1 items-center'>
+                                <div
+                                    className='flex gap-1 items-center cursor-pointer'
+                                    onClick={() => setIsFollowersModalOpen(true)} // Thay đổi để mở modal followers
+                                >
                                     <span className='font-bold text-xs'>{user?.followers.length}</span>
                                     <span className='text-slate-500 text-xs'>Followers</span>
                                 </div>
@@ -254,6 +259,11 @@ const ProfilePage = () => {
             <FollowingModal
                 isOpen={isFollowingModalOpen}
                 onClose={() => setIsFollowingModalOpen(false)}
+                userId={user?._id}
+            />
+            <FollowersModal
+                isOpen={isFollowersModalOpen}
+                onClose={() => setIsFollowersModalOpen(false)}
                 userId={user?._id}
             />
         </div>
