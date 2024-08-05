@@ -2,12 +2,12 @@ import logo from "../svgs/main_logo.jpg";
 import React from "react";
 import { MdHomeFilled } from "react-icons/md";
 import { IoNotifications } from "react-icons/io5";
-import { FaBatteryQuarter, FaCalendar, FaClock, FaMeetup, FaUser } from "react-icons/fa";
+import { FaBatteryQuarter, FaCalendar, FaClipboardList, FaClock, FaMeetup, FaUser } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import { BiLogOut } from "react-icons/bi";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import toast from "react-hot-toast";
-import { FaNoteSticky } from "react-icons/fa6";
+import { FaChalkboardUser, FaListCheck, FaNoteSticky } from "react-icons/fa6";
 
 const Sidebar = () => {
 	const queryClient = useQueryClient();
@@ -98,7 +98,7 @@ const Sidebar = () => {
 							to={`/smart-list`}
 							className='flex gap-3 items-center hover:bg-lime-800 transition-all rounded-full duration-300 py-2 pl-2 pr-4 max-w-fit cursor-pointer'
 						>
-							<FaBatteryQuarter className='w-6 h-6' />
+							<FaListCheck className='w-6 h-6' />
 							<span className='text-lg hidden md:block'>Smart List</span>
 						</Link>
 					</li>
@@ -107,7 +107,7 @@ const Sidebar = () => {
 							to={`/videocall`}
 							className='flex gap-3 items-center hover:bg-lime-800 transition-all rounded-full duration-300 py-2 pl-2 pr-4 max-w-fit cursor-pointer'
 						>
-							<FaMeetup className='w-6 h-6' />
+							<FaChalkboardUser className='w-6 h-6' />
 							<span className='text-lg hidden md:block'>Smart Room</span>
 						</Link>
 					</li>
