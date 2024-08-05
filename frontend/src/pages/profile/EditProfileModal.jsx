@@ -11,11 +11,20 @@ const EditProfileModal = ({ authUser }) => {
 		newPassword: "",
 		currentPassword: "",
 	});
+	const [error, setError] = useState(""); // State to store error messages
 
 	const { updateProfile, isUpdatingProfile } = useUpdateUserProfile();
 
 	const handleInputChange = (e) => {
-		setFormData({ ...formData, [e.target.name]: e.target.value });
+		const { name, value } = e.target;
+
+		// Special handling for username to prevent spaces
+		if (name === 'username' && value.includes(' ')) {
+			setError("Username cannot contain spaces.");
+		} else {
+			setError(""); // Clear error if valid
+			setFormData({ ...formData, [name]: value });
+		}
 	};
 
 	useEffect(() => {
@@ -32,6 +41,16 @@ const EditProfileModal = ({ authUser }) => {
 		}
 	}, [authUser]);
 
+	const handleSubmit = (e) => {
+		e.preventDefault();
+		if (formData.username.includes(' ')) {
+			setError("Username cannot contain spaces.");
+		} else {
+			setError(""); // Clear error if valid
+			updateProfile(formData);
+		}
+	};
+
 	return (
 		<>
 			<button
@@ -45,11 +64,9 @@ const EditProfileModal = ({ authUser }) => {
 					<h3 className='font-bold text-lg my-3'>Update Profile</h3>
 					<form
 						className='flex flex-col gap-4'
-						onSubmit={(e) => {
-							e.preventDefault();
-							updateProfile(formData);
-						}}
+						onSubmit={handleSubmit}
 					>
+						{error && <p className='text-red-500'>{error}</p>}
 						<div className='flex flex-wrap gap-2'>
 							<input
 								type='text'
