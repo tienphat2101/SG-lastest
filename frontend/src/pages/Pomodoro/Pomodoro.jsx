@@ -44,7 +44,8 @@ class Timer extends React.Component {
       timer: 1500,
       intervalID: '',
       alarmColor: { color: 'white' },
-      warningActive: false
+      warningActive: false,
+      alertSound: '/sounds/notification.mp3', // Default sound
     };
     this.setBreakLength = this.setBreakLength.bind(this);
     this.setSessionLength = this.setSessionLength.bind(this);
@@ -58,6 +59,7 @@ class Timer extends React.Component {
     this.switchTimer = this.switchTimer.bind(this);
     this.clockify = this.clockify.bind(this);
     this.reset = this.reset.bind(this);
+    this.handleFileChange = this.handleFileChange.bind(this);
   }
 
   setBreakLength(e) {
@@ -148,6 +150,7 @@ class Timer extends React.Component {
 
   buzzer() {
     const buzzer = document.getElementById('beep');
+    buzzer.src = this.state.alertSound; // Play the selected sound
     buzzer.play();
     this.setState({ warningActive: true });
     setTimeout(() => {
@@ -182,12 +185,25 @@ class Timer extends React.Component {
       timer: 1500,
       intervalID: '',
       alarmColor: { color: 'white' },
-      warningActive: false
+      warningActive: false,
+      alertSound: '/sounds/notification.mp3' // Reset to default sound
     });
     const buzzer = document.getElementById('beep');
     buzzer.pause();
     buzzer.currentTime = 0;
     clearInterval(this.state.intervalID);
+  }
+
+  handleFileChange(event) {
+    const file = event.target.files[0];
+    if (file) {
+      if (file.type === 'audio/mpeg' || file.type === 'audio/mp3') {
+        const url = URL.createObjectURL(file);
+        this.setState({ alertSound: url });
+      } else {
+        alert('Please select an MP3 file.');
+      }
+    }
   }
 
   render() {
@@ -232,8 +248,19 @@ class Timer extends React.Component {
             <i className="fa fa-refresh" />
           </button>
         </div>
+        <div className={styles.customizeAlert}>
+  <button onClick={() => document.querySelector('input[type=file]').click()}>
+    Customize Alert
+  </button>
+  <input 
+    type="file" 
+    accept="audio/mp3" 
+    onChange={this.handleFileChange} 
+    style={{ display: 'none' }} // Ẩn phần tử input file
+  />
+</div>
         <ToDoList />
-        <audio id="beep" preload="auto" src="/sounds/notification.mp3" />
+        <audio id="beep" preload="auto" />
       </div>
     );
   }

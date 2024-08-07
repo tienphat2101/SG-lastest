@@ -124,3 +124,28 @@ footer {
 #reset {
   margin-left: 20px; /* Adds extra space to the left of the reset button */
 }
+
+#container .customizeAlert {
+  margin-top: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#container .customizeAlert button {
+  background-color: #87df2c; /* Màu nền của nút */
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+  border-radius: 5px;
+  font-size: 16px;
+}
+
+#container .customizeAlert button:hover {
+  background-color: #6fbc1f; /* Màu nền khi hover */
+}
+
+#container .customizeAlert input[type="file"] {
+  display: none; /* Ẩn phần tử input file */
+}
