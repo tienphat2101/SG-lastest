@@ -43,7 +43,8 @@ class Timer extends React.Component {
       timerType: 'Session',
       timer: 1500,
       intervalID: '',
-      alarmColor: { color: 'white' }
+      alarmColor: { color: 'white' },
+      warningActive: false
     };
     this.setBreakLength = this.setBreakLength.bind(this);
     this.setSessionLength = this.setSessionLength.bind(this);
@@ -120,13 +121,15 @@ class Timer extends React.Component {
           this.setState({
             timerType: 'Break',
             timer: this.state.breakLength * 60,
-            alarmColor: { color: 'white' }
+            alarmColor: { color: 'white' },
+            warningActive: false
           });
         } else {
           this.setState({
             timerType: 'Session',
             timer: this.state.sessionLength * 60,
-            alarmColor: { color: 'white' }
+            alarmColor: { color: 'white' },
+            warningActive: false
           });
         }
       }, 6000); // Delay switching timer type and resetting timer by 6 seconds
@@ -146,9 +149,11 @@ class Timer extends React.Component {
   buzzer() {
     const buzzer = document.getElementById('beep');
     buzzer.play();
+    this.setState({ warningActive: true });
     setTimeout(() => {
       buzzer.pause();
       buzzer.currentTime = 0;
+      this.setState({ warningActive: false });
     }, 6000); // Stop the buzzer after 6 seconds
   }
 
@@ -176,7 +181,8 @@ class Timer extends React.Component {
       timerType: 'Session',
       timer: 1500,
       intervalID: '',
-      alarmColor: { color: 'white' }
+      alarmColor: { color: 'white' },
+      warningActive: false
     });
     const buzzer = document.getElementById('beep');
     buzzer.pause();
@@ -211,7 +217,7 @@ class Timer extends React.Component {
         <div className={styles.timer}>
           <div className={styles.timerWrapper} style={this.state.alarmColor}>
             <div id="timer-label">{this.state.timerType}</div>
-            <div id="time-left">{this.clockify()}</div>
+            <div id="time-left">{this.state.warningActive ? '00:00' : this.clockify()}</div>
           </div>
         </div>
         <div className={styles.timerControl}>
