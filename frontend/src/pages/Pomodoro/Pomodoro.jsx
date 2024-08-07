@@ -97,7 +97,6 @@ class Timer extends React.Component {
     }
   }
   
-
   beginCountDown() {
     this.setState({
       intervalID: setInterval(() => {
@@ -116,19 +115,21 @@ class Timer extends React.Component {
   phaseControl() {
     if (this.state.timer === 0) {
       this.buzzer();
-      if (this.state.timerType === 'Session') {
-        this.setState({
-          timerType: 'Break',
-          timer: this.state.breakLength * 60,
-          alarmColor: { color: 'white' }
-        });
-      } else {
-        this.setState({
-          timerType: 'Session',
-          timer: this.state.sessionLength * 60,
-          alarmColor: { color: 'white' }
-        });
-      }
+      setTimeout(() => {
+        if (this.state.timerType === 'Session') {
+          this.setState({
+            timerType: 'Break',
+            timer: this.state.breakLength * 60,
+            alarmColor: { color: 'white' }
+          });
+        } else {
+          this.setState({
+            timerType: 'Session',
+            timer: this.state.sessionLength * 60,
+            alarmColor: { color: 'white' }
+          });
+        }
+      }, 6000); // Delay switching timer type and resetting timer by 6 seconds
     } else {
       this.warning(this.state.timer);
     }
@@ -145,6 +146,10 @@ class Timer extends React.Component {
   buzzer() {
     const buzzer = document.getElementById('beep');
     buzzer.play();
+    setTimeout(() => {
+      buzzer.pause();
+      buzzer.currentTime = 0;
+    }, 6000); // Stop the buzzer after 6 seconds
   }
 
   switchTimer(num, str) {
@@ -222,7 +227,7 @@ class Timer extends React.Component {
           </button>
         </div>
         <ToDoList />
-        <audio id="beep" preload="auto" src="https://www.soundjay.com/button/sounds/beep-07.mp3" />
+        <audio id="beep" preload="auto" src="/sounds/notification.mp3" />
       </div>
     );
   }
