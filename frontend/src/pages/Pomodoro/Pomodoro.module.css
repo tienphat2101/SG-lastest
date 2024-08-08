@@ -140,12 +140,67 @@ footer {
   cursor: pointer;
   border-radius: 5px;
   font-size: 16px;
+  margin-right: 20px; /* Khoảng cách giữa nút "Customize Alert" và nút "Alert Time" */
 }
 
-#container .customizeAlert button:hover {
-  background-color: #6fbc1f; /* Màu nền khi hover */
+#container .customizeAlert button:last-child {
+  margin-right: 0; /* Đảm bảo nút cuối không có khoảng cách bên phải */
 }
 
 #container .customizeAlert input[type="file"] {
   display: none; /* Ẩn phần tử input file */
+}
+
+/* Pomodoro.module.css */
+
+.popup {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.popupTitle {
+  font-size: 18px; /* Kích thước chữ của tiêu đề */
+  color: #ffffff;
+  margin-bottom: 10px;
+}
+
+.popupContent {
+  background: #1d232a;
+  padding: 20px;
+  border-radius: 5px;
+  position: relative;
+}
+
+.close {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 20px;
+  cursor: pointer;
+  color: #e6dfdf;
+}
+
+.popupInput {
+  color: #fff; /* Số thời gian là màu trắng */
+  background-color: #333; /* Nền của ô input để nổi bật */
+  border: 1px solid #55f12ee5; /* Viền của ô input để nổi bật */
+}
+
+.popupButton {
+  background-color: #333;
+  color: #fff; /* Nút màu trắng */
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+}
+
+.popupButton:hover {
+  background-color: #555; /* Màu nền khi hover */
 }
