@@ -18,7 +18,11 @@ class TimerLengthControl extends React.Component {
           >
             <i className="fa fa-minus"></i>
           </button>
-          <div id={this.props.lengthID} className={styles.lengthDisplay}>
+          <div
+            id={this.props.lengthID}
+            className={styles.lengthDisplay}
+            onDoubleClick={this.props.onDoubleClick}
+          >
             {this.props.length}
           </div>
         </div>
@@ -51,7 +55,11 @@ class Timer extends React.Component {
       alertDuration: 6000,
       showPopup: false,
       alertDurationInput: 6, // Initial value for the alert duration input
-      invalidTime: false // Add invalidTime state to control error display
+      invalidTime: false, // Add invalidTime state to control error display
+      isEditingBreak: false,
+      isEditingSession: false,
+      customBreakLength: 5,
+      customSessionLength: 25,
     };
     this.setBreakLength = this.setBreakLength.bind(this);
     this.setSessionLength = this.setSessionLength.bind(this);
@@ -69,6 +77,10 @@ class Timer extends React.Component {
     this.handleDurationChange = this.handleDurationChange.bind(this);
     this.closePopup = this.closePopup.bind(this);
     this.openPopup = this.openPopup.bind(this);
+    this.handleDoubleClick = this.handleDoubleClick.bind(this);
+    this.handleChange = this.handleChange.bind(this);
+    this.handleBlur = this.handleBlur.bind(this);
+    this.handleKeyPress = this.handleKeyPress.bind(this);
   }
 
   setBreakLength(e) {
@@ -111,7 +123,7 @@ class Timer extends React.Component {
       buzzer.currentTime = 0;
     }
   }
-  
+
   beginCountDown() {
     this.setState({
       intervalID: setInterval(() => {
@@ -201,7 +213,11 @@ class Timer extends React.Component {
       alertSound: '/sounds/notification.mp3',
       alertDuration: 6000,
       showPopup: false,
-      invalidTime: false // Reset invalid time state
+      invalidTime: false, // Reset invalid time state
+      isEditingBreak: false,
+      isEditingSession: false,
+      customBreakLength: 5,
+      customSessionLength: 25,
     });
     const buzzer = document.getElementById('beep');
     buzzer.pause();
@@ -215,19 +231,17 @@ class Timer extends React.Component {
       if (file.type === 'audio/mpeg' || file.type === 'audio/mp3') {
         const url = URL.createObjectURL(file);
         this.setState({ alertSound: url });
-        toast.success('file upload successfully!',{
+        toast.success('file upload successfully!', {
           position: "top-center",
           hideProgressBar: true,
           autoClose: 3000
-        }
-        );
+        });
       } else {
-        toast.error('Please select an MP3 file.',{
+        toast.error('Please select an MP3 file.', {
           position: "top-center",
           hideProgressBar: true,
-          autoClose:3000
-        }
-        );
+          autoClose: 3000
+        });
       }
     }
   }
@@ -239,19 +253,17 @@ class Timer extends React.Component {
         alertDuration: duration * 1000, 
         showPopup: false 
       });
-      toast.success('Alert duration updated successfully!',{
+      toast.success('Alert duration updated successfully!', {
         position: "top-center",
         hideProgressBar: true,
-        autoClose:3000
-      }
-      );
+        autoClose: 3000
+      });
     } else {
-      toast.error('Invalid time. Resetting to 6 seconds.',{
+      toast.error('Invalid time. Resetting to 6 seconds.', {
         position: "top-center",
         hideProgressBar: true,
-        autoClose:3000
-      }
-      );
+        autoClose: 3000
+      });
       this.setState({ 
         alertDuration: 6000, 
         showPopup: false 
@@ -267,6 +279,54 @@ class Timer extends React.Component {
     this.setState({ showPopup: true });
   }
 
+  handleDoubleClick(e) {
+    if (e.target.id === 'break-length') {
+      this.setState({ isEditingBreak: true, customBreakLength: this.state.breakLength });
+    } else if (e.target.id === 'session-length') {
+      this.setState({ isEditingSession: true, customSessionLength: this.state.sessionLength });
+    }
+  }
+
+  handleChange(e) {
+    if (this.state.isEditingBreak) {
+      this.setState({ customBreakLength: e.target.value });
+    } else if (this.state.isEditingSession) {
+      this.setState({ customSessionLength: e.target.value });
+    }
+  }
+
+  handleBlur() {
+    if (this.state.isEditingBreak) {
+      const newBreakLength = parseInt(this.state.customBreakLength, 10);
+      if (newBreakLength >= 1 && newBreakLength <= 60) {
+        this.setState({ 
+          breakLength: newBreakLength,
+          timer: newBreakLength * 60,
+          isEditingBreak: false 
+        });
+      } else {
+        this.setState({ isEditingBreak: false });
+      }
+    } else if (this.state.isEditingSession) {
+      const newSessionLength = parseInt(this.state.customSessionLength, 10);
+      if (newSessionLength >= 1 && newSessionLength <= 60) {
+        this.setState({ 
+          sessionLength: newSessionLength,
+          timer: newSessionLength * 60,
+          isEditingSession: false 
+        });
+      } else {
+        this.setState({ isEditingSession: false });
+      }
+    }
+  }
+
+  handleKeyPress(e) {
+    if (e.key === 'Enter') {
+      this.handleBlur();
+    }
+  }
+
   render() {
     return (
       <div id={styles.container}>
@@ -279,7 +339,21 @@ class Timer extends React.Component {
             lengthID="break-length"
             title="Break Length"
             onClick={this.setBreakLength}
-            length={this.state.breakLength}
+            onDoubleClick={this.handleDoubleClick}
+            length={this.state.isEditingBreak ? (
+              <input 
+                type="number"
+                min="1"
+                max="60"
+                value={this.state.customBreakLength}
+                onChange={this.handleChange}
+                onBlur={this.handleBlur}
+                onKeyDown={this.handleKeyPress}
+                autoFocus
+              />
+            ) : (
+              this.state.breakLength
+            )}
           />
           <TimerLengthControl
             titleID="session-label"
@@ -288,7 +362,21 @@ class Timer extends React.Component {
             lengthID="session-length"
             title="Session Length"
             onClick={this.setSessionLength}
-            length={this.state.sessionLength}
+            onDoubleClick={this.handleDoubleClick}
+            length={this.state.isEditingSession ? (
+              <input 
+                type="number"
+                min="1"
+                max="60"
+                value={this.state.customSessionLength}
+                onChange={this.handleChange}
+                onBlur={this.handleBlur}
+                onKeyDown={this.handleKeyPress}
+                autoFocus
+              />
+            ) : (
+              this.state.sessionLength
+            )}
           />
         </div>
         <div className={styles.timer}>
