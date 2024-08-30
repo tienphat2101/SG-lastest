@@ -9,8 +9,8 @@ import RightPanel from "./components/common/RightPanel";
 import { Toaster } from "react-hot-toast";
 import { useQuery } from "@tanstack/react-query";
 import LoadingSpinner from "./components/common/LoadingSpinner";
-import React, { useEffect, useState } from 'react';
-import io from 'socket.io-client';
+import React, { useEffect, useState } from "react";
+import io from "socket.io-client";
 import Timer from "./pages/Pomodoro/Pomodoro";
 import CalendarComponent from "./pages/Calendar/CalendarComponent";
 import ProgressBarPage from "./pages/progress/Progress";
@@ -18,73 +18,134 @@ import Videocall from "./pages/Video calls/videocall";
 import SearchResultsPage from "./pages/search/SearchResultsPage";
 import Flashcard from "./pages/Flashcard/flashcard";
 
-const socket = io('http://localhost:5000'); 
+const socket = io("http://localhost:5000");
 
 function App() {
-    const [users, setUsers] = useState([]);
-    const location = useLocation();
+  const [users, setUsers] = useState([]);
+  const location = useLocation();
 
-    useEffect(() => {
-        socket.on('update_avatar', (updatedUser) => {
-            setUsers((prevUsers) => 
-                prevUsers.map(user => user._id === updatedUser._id ? updatedUser : user)
-            );
-        });
-
-        return () => {
-            socket.off('update_avatar');
-        };
-    }, []);
-
-    const { data: authUser, isLoading } = useQuery({
-        queryKey: ["authUser"],
-        queryFn: async () => {
-            try {
-                const res = await fetch("/api/auth/me");
-                const data = await res.json();
-                if (data.error) return null;
-                if (!res.ok) {
-                    throw new Error(data.error || "Something went wrong");
-                }
-                console.log("authUser is here:", data);
-                return data;
-            } catch (error) {
-                throw new Error(error);
-            }
-        },
-        retry: false,
+  useEffect(() => {
+    socket.on("update_avatar", (updatedUser) => {
+      setUsers((prevUsers) =>
+        prevUsers.map((user) =>
+          user._id === updatedUser._id ? updatedUser : user
+        )
+      );
     });
 
-    if (isLoading) {
-        return (
-            <div className='h-screen flex justify-center items-center'>
-                <LoadingSpinner size='lg' />
-            </div>
-        );
-    }
+    return () => {
+      socket.off("update_avatar");
+    };
+  }, []);
 
+  const { data: authUser, isLoading } = useQuery({
+    queryKey: ["authUser"],
+    queryFn: async () => {
+      try {
+        const res = await fetch("/api/auth/me");
+        const data = await res.json();
+        if (data.error) return null;
+        if (!res.ok) {
+          throw new Error(data.error || "Something went wrong");
+        }
+        console.log("authUser is here:", data);
+        return data;
+      } catch (error) {
+        throw new Error(error);
+      }
+    },
+    retry: false,
+  });
+
+  if (isLoading) {
     return (
-        <div className='flex max-w-6xl mx-auto'>
-            {authUser && <Sidebar />}
-            <div className="w-full">
-                <Routes>
-                    <Route path='/' element={authUser ? <HomePage /> : <Navigate to='/login' />} />
-                    <Route path='/login' element={!authUser ? <LoginPage /> : <Navigate to='/' />} />
-                    <Route path='/signup' element={!authUser ? <SignUpPage /> : <Navigate to='/' />} />
-                    <Route path='/notifications' element={authUser ? <NotificationPage /> : <Navigate to='/login' />} />
-                    <Route path='/profile/:username' element={authUser ? <ProfilePage users={users} /> : <Navigate to='/login' />} />
-                    <Route path='/pomodoro' element={authUser ? <Timer /> : <Navigate to='/login' />} /> 
-                    <Route path='/calendar' element={authUser ? <CalendarComponent /> : <Navigate to='/login' />} />
-                    <Route path='/smart-list' element={authUser ? <ProgressBarPage /> : <Navigate to='/login' />}/>
-                    <Route path='/videocall' element={authUser ? <Videocall /> : <Navigate to='/login' />}/>
-                    <Route path='/search' element={authUser ? <SearchResultsPage /> : <Navigate to='/login' />} />
-                    <Route path='/flashcard' element={authUser ? <Flashcard /> : <Navigate to='/login' />}/>
-                </Routes>
-            </div>
-            {location.pathname !== '/calendar' && authUser && <RightPanel />}
-            <Toaster />
-        </div>
+      <div className="h-screen flex justify-center items-center bg-gray-900">
+        <LoadingSpinner size="lg" />
+      </div>
     );
+  }
+
+  return (
+    <div className="min-h-screen bg-gray-900 text-gray-100">
+      <div className="flex max-w-6xl mx-auto">
+        {authUser && <Sidebar className="w-64 mr-4 bg-gray-800" />}
+        <div className="flex-grow">
+          <Routes>
+            <Route
+              path="/"
+              element={authUser ? <HomePage /> : <Navigate to="/login" />}
+            />
+            <Route
+              path="/login"
+              element={!authUser ? <LoginPage /> : <Navigate to="/" />}
+            />
+            <Route
+              path="/signup"
+              element={!authUser ? <SignUpPage /> : <Navigate to="/" />}
+            />
+            <Route
+              path="/notifications"
+              element={
+                authUser ? <NotificationPage /> : <Navigate to="/login" />
+              }
+            />
+            <Route
+              path="/profile/:username"
+              element={
+                authUser ? (
+                  <ProfilePage users={users} />
+                ) : (
+                  <Navigate to="/login" />
+                )
+              }
+            />
+            <Route
+              path="/pomodoro"
+              element={authUser ? <Timer /> : <Navigate to="/login" />}
+            />
+            <Route
+              path="/calendar"
+              element={
+                authUser ? <CalendarComponent /> : <Navigate to="/login" />
+              }
+            />
+            <Route
+              path="/smart-list"
+              element={
+                authUser ? <ProgressBarPage /> : <Navigate to="/login" />
+              }
+            />
+            <Route
+              path="/videocall"
+              element={authUser ? <Videocall /> : <Navigate to="/login" />}
+            />
+            <Route
+              path="/search"
+              element={
+                authUser ? <SearchResultsPage /> : <Navigate to="/login" />
+              }
+            />
+            <Route
+              path="/flashcard"
+              element={authUser ? <Flashcard /> : <Navigate to="/login" />}
+            />
+          </Routes>
+        </div>
+        {location.pathname !== "/calendar" && authUser && (
+          <RightPanel className="w-64 ml-4 bg-gray-800" />
+        )}
+      </div>
+      <Toaster
+        position="top-right"
+        toastOptions={{
+          style: {
+            background: "#333",
+            color: "#fff",
+          },
+        }}
+      />
+    </div>
+  );
 }
 
 export default App;
