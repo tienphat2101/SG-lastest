@@ -33,7 +33,7 @@ const Flashcard = () => {
   return (
     <div style={containerStyle}>
       <iframe
-        src="https://tienphat2101.github.io/flashcard/"
+        src="facebook.com"
         style={iframeStyle}
         title="Flash Card"
       />
