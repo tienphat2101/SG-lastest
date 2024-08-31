@@ -1,18 +1,18 @@
-import React, { useState } from 'react';
-import styles from './ToDoList.module.css';
+import React, { useState } from "react";
+import styles from "./ToDoList.module.css";
 
 function ToDoList() {
   const [tasks, setTasks] = useState([]);
-  const [input, setInput] = useState('');
+  const [input, setInput] = useState("");
 
   const handleInputChange = (e) => {
     setInput(e.target.value);
   };
 
   const addTask = () => {
-    if (input.trim() !== '') {
+    if (input.trim() !== "") {
       setTasks([...tasks, input]);
-      setInput('');
+      setInput("");
     }
   };
 
@@ -32,13 +32,20 @@ function ToDoList() {
           placeholder="Add a task"
           className={styles.input}
         />
-        <button onClick={addTask} className={styles.addButton}>Add</button>
+        <button onClick={addTask} className={styles.addButton}>
+          Add
+        </button>
       </div>
       <ul className={styles.taskList}>
         {tasks.map((task, index) => (
           <li key={index} className={styles.taskItem}>
             {task}
-            <button onClick={() => removeTask(index)} className={styles.removeButton}>X</button>
+            <button
+              onClick={() => removeTask(index)}
+              className={styles.removeButton}
+            >
+              X
+            </button>
           </li>
         ))}
       </ul>

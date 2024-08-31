@@ -1,8 +1,8 @@
-import React from 'react';
-import { toast, ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
-import styles from './Pomodoro.module.css';
-import ToDoList from './TodoList';
+import React from "react";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import styles from "./Pomodoro.module.css";
+import ToDoList from "./TodoList";
 
 class TimerLengthControl extends React.Component {
   render() {
@@ -45,13 +45,13 @@ class Timer extends React.Component {
     this.state = {
       breakLength: 5,
       sessionLength: 25,
-      timerState: 'stopped',
-      timerType: 'Session',
+      timerState: "stopped",
+      timerType: "Session",
       timer: 1500,
       intervalID: null,
-      alarmColor: { color: 'white' },
+      alarmColor: { color: "white" },
       warningActive: false,
-      alertSound: '/sounds/notification.mp3',
+      alertSound: "/sounds/notification.mp3",
       alertDuration: 6000,
       showPopup: false,
       alertDurationInput: 6, // Initial value for the alert duration input
@@ -84,21 +84,35 @@ class Timer extends React.Component {
   }
 
   setBreakLength(e) {
-    this.lengthControl('breakLength', e.currentTarget.value, this.state.breakLength, 'Break');
+    this.lengthControl(
+      "breakLength",
+      e.currentTarget.value,
+      this.state.breakLength,
+      "Break"
+    );
   }
 
   setSessionLength(e) {
-    this.lengthControl('sessionLength', e.currentTarget.value, this.state.sessionLength, 'Session');
+    this.lengthControl(
+      "sessionLength",
+      e.currentTarget.value,
+      this.state.sessionLength,
+      "Session"
+    );
   }
 
   lengthControl(stateToChange, sign, currentLength, timerType) {
     this.setState((prevState) => {
-      const newLength = sign === '+' ? currentLength + 1 : currentLength - 1;
-      if (newLength > 0 && newLength < 61 && prevState.timerState === 'stopped') {
+      const newLength = sign === "+" ? currentLength + 1 : currentLength - 1;
+      if (
+        newLength > 0 &&
+        newLength < 61 &&
+        prevState.timerState === "stopped"
+      ) {
         if (prevState.timerType === timerType) {
-          return { 
+          return {
             [stateToChange]: newLength,
-            timer: newLength * 60 
+            timer: newLength * 60,
           };
         }
         return { [stateToChange]: newLength };
@@ -109,16 +123,16 @@ class Timer extends React.Component {
   }
 
   timerControl() {
-    if (this.state.timerState === 'stopped') {
+    if (this.state.timerState === "stopped") {
       this.beginCountDown();
-      this.setState({ timerState: 'running' });
+      this.setState({ timerState: "running" });
     } else {
-      this.setState({ timerState: 'stopped' });
+      this.setState({ timerState: "stopped" });
       if (this.state.intervalID) {
         clearInterval(this.state.intervalID);
         this.setState({ intervalID: null });
       }
-      const buzzer = document.getElementById('beep');
+      const buzzer = document.getElementById("beep");
       buzzer.pause();
       buzzer.currentTime = 0;
     }
@@ -129,13 +143,13 @@ class Timer extends React.Component {
       intervalID: setInterval(() => {
         this.decrementTimer();
         this.phaseControl();
-      }, 1000)
+      }, 1000),
     });
   }
 
   decrementTimer() {
     this.setState((prevState) => ({
-      timer: prevState.timer - 1
+      timer: prevState.timer - 1,
     }));
   }
 
@@ -143,19 +157,19 @@ class Timer extends React.Component {
     if (this.state.timer === 0) {
       this.buzzer();
       setTimeout(() => {
-        if (this.state.timerType === 'Session') {
+        if (this.state.timerType === "Session") {
           this.setState({
-            timerType: 'Break',
+            timerType: "Break",
             timer: this.state.breakLength * 60,
-            alarmColor: { color: 'white' },
-            warningActive: false
+            alarmColor: { color: "white" },
+            warningActive: false,
           });
         } else {
           this.setState({
-            timerType: 'Session',
+            timerType: "Session",
             timer: this.state.sessionLength * 60,
-            alarmColor: { color: 'white' },
-            warningActive: false
+            alarmColor: { color: "white" },
+            warningActive: false,
           });
         }
       }, this.state.alertDuration);
@@ -166,14 +180,14 @@ class Timer extends React.Component {
 
   warning(timer) {
     if (timer < 61) {
-      this.setState({ alarmColor: { color: 'red' } });
+      this.setState({ alarmColor: { color: "red" } });
     } else {
-      this.setState({ alarmColor: { color: 'white' } });
+      this.setState({ alarmColor: { color: "white" } });
     }
   }
 
   buzzer() {
-    const buzzer = document.getElementById('beep');
+    const buzzer = document.getElementById("beep");
     buzzer.src = this.state.alertSound;
     buzzer.play();
     this.setState({ warningActive: true });
@@ -188,15 +202,15 @@ class Timer extends React.Component {
     this.setState({
       timer: num * 60,
       timerType: str,
-      alarmColor: { color: 'white' }
+      alarmColor: { color: "white" },
     });
   }
 
   clockify() {
     let minutes = Math.floor(this.state.timer / 60);
     let seconds = this.state.timer - minutes * 60;
-    seconds = seconds < 10 ? '0' + seconds : seconds;
-    minutes = minutes < 10 ? '0' + minutes : minutes;
+    seconds = seconds < 10 ? "0" + seconds : seconds;
+    minutes = minutes < 10 ? "0" + minutes : minutes;
     return `${minutes}:${seconds}`;
   }
 
@@ -204,13 +218,13 @@ class Timer extends React.Component {
     this.setState({
       breakLength: 5,
       sessionLength: 25,
-      timerState: 'stopped',
-      timerType: 'Session',
+      timerState: "stopped",
+      timerType: "Session",
       timer: 1500,
       intervalID: null,
-      alarmColor: { color: 'white' },
+      alarmColor: { color: "white" },
       warningActive: false,
-      alertSound: '/sounds/notification.mp3',
+      alertSound: "/sounds/notification.mp3",
       alertDuration: 6000,
       showPopup: false,
       invalidTime: false, // Reset invalid time state
@@ -219,7 +233,7 @@ class Timer extends React.Component {
       customBreakLength: 5,
       customSessionLength: 25,
     });
-    const buzzer = document.getElementById('beep');
+    const buzzer = document.getElementById("beep");
     buzzer.pause();
     buzzer.currentTime = 0;
     clearInterval(this.state.intervalID);
@@ -228,19 +242,19 @@ class Timer extends React.Component {
   handleFileChange(event) {
     const file = event.target.files[0];
     if (file) {
-      if (file.type === 'audio/mpeg' || file.type === 'audio/mp3') {
+      if (file.type === "audio/mpeg" || file.type === "audio/mp3") {
         const url = URL.createObjectURL(file);
         this.setState({ alertSound: url });
-        toast.success('file upload successfully!', {
+        toast.success("file upload successfully!", {
           position: "top-center",
           hideProgressBar: true,
-          autoClose: 3000
+          autoClose: 3000,
         });
       } else {
-        toast.error('Please select an MP3 file.', {
+        toast.error("Please select an MP3 file.", {
           position: "top-center",
           hideProgressBar: true,
-          autoClose: 3000
+          autoClose: 3000,
         });
       }
     }
@@ -249,24 +263,24 @@ class Timer extends React.Component {
   handleDurationChange() {
     const duration = parseInt(this.state.alertDurationInput, 10);
     if (duration >= 6 && duration <= 60) {
-      this.setState({ 
-        alertDuration: duration * 1000, 
-        showPopup: false 
+      this.setState({
+        alertDuration: duration * 1000,
+        showPopup: false,
       });
-      toast.success('Alert duration updated successfully!', {
+      toast.success("Alert duration updated successfully!", {
         position: "top-center",
         hideProgressBar: true,
-        autoClose: 3000
+        autoClose: 3000,
       });
     } else {
-      toast.error('Invalid time. Resetting to 6 seconds.', {
+      toast.error("Invalid time. Resetting to 6 seconds.", {
         position: "top-center",
         hideProgressBar: true,
-        autoClose: 3000
+        autoClose: 3000,
       });
-      this.setState({ 
-        alertDuration: 6000, 
-        showPopup: false 
+      this.setState({
+        alertDuration: 6000,
+        showPopup: false,
       });
     }
   }
@@ -280,10 +294,16 @@ class Timer extends React.Component {
   }
 
   handleDoubleClick(e) {
-    if (e.target.id === 'break-length') {
-      this.setState({ isEditingBreak: true, customBreakLength: this.state.breakLength });
-    } else if (e.target.id === 'session-length') {
-      this.setState({ isEditingSession: true, customSessionLength: this.state.sessionLength });
+    if (e.target.id === "break-length") {
+      this.setState({
+        isEditingBreak: true,
+        customBreakLength: this.state.breakLength,
+      });
+    } else if (e.target.id === "session-length") {
+      this.setState({
+        isEditingSession: true,
+        customSessionLength: this.state.sessionLength,
+      });
     }
   }
 
@@ -299,10 +319,10 @@ class Timer extends React.Component {
     if (this.state.isEditingBreak) {
       const newBreakLength = parseInt(this.state.customBreakLength, 10);
       if (newBreakLength >= 1 && newBreakLength <= 60) {
-        this.setState({ 
+        this.setState({
           breakLength: newBreakLength,
           timer: newBreakLength * 60,
-          isEditingBreak: false 
+          isEditingBreak: false,
         });
       } else {
         this.setState({ isEditingBreak: false });
@@ -310,10 +330,10 @@ class Timer extends React.Component {
     } else if (this.state.isEditingSession) {
       const newSessionLength = parseInt(this.state.customSessionLength, 10);
       if (newSessionLength >= 1 && newSessionLength <= 60) {
-        this.setState({ 
+        this.setState({
           sessionLength: newSessionLength,
           timer: newSessionLength * 60,
-          isEditingSession: false 
+          isEditingSession: false,
         });
       } else {
         this.setState({ isEditingSession: false });
@@ -322,7 +342,7 @@ class Timer extends React.Component {
   }
 
   handleKeyPress(e) {
-    if (e.key === 'Enter') {
+    if (e.key === "Enter") {
       this.handleBlur();
     }
   }
@@ -340,20 +360,22 @@ class Timer extends React.Component {
             title="Break Length"
             onClick={this.setBreakLength}
             onDoubleClick={this.handleDoubleClick}
-            length={this.state.isEditingBreak ? (
-              <input 
-                type="number"
-                min="1"
-                max="60"
-                value={this.state.customBreakLength}
-                onChange={this.handleChange}
-                onBlur={this.handleBlur}
-                onKeyDown={this.handleKeyPress}
-                autoFocus
-              />
-            ) : (
-              this.state.breakLength
-            )}
+            length={
+              this.state.isEditingBreak ? (
+                <input
+                  type="number"
+                  min="1"
+                  max="60"
+                  value={this.state.customBreakLength}
+                  onChange={this.handleChange}
+                  onBlur={this.handleBlur}
+                  onKeyDown={this.handleKeyPress}
+                  autoFocus
+                />
+              ) : (
+                this.state.breakLength
+              )
+            }
           />
           <TimerLengthControl
             titleID="session-label"
@@ -363,31 +385,35 @@ class Timer extends React.Component {
             title="Session Length"
             onClick={this.setSessionLength}
             onDoubleClick={this.handleDoubleClick}
-            length={this.state.isEditingSession ? (
-              <input 
-                type="number"
-                min="1"
-                max="60"
-                value={this.state.customSessionLength}
-                onChange={this.handleChange}
-                onBlur={this.handleBlur}
-                onKeyDown={this.handleKeyPress}
-                autoFocus
-              />
-            ) : (
-              this.state.sessionLength
-            )}
+            length={
+              this.state.isEditingSession ? (
+                <input
+                  type="number"
+                  min="1"
+                  max="60"
+                  value={this.state.customSessionLength}
+                  onChange={this.handleChange}
+                  onBlur={this.handleBlur}
+                  onKeyDown={this.handleKeyPress}
+                  autoFocus
+                />
+              ) : (
+                this.state.sessionLength
+              )
+            }
           />
         </div>
         <div className={styles.timer}>
           <div className={styles.timerWrapper} style={this.state.alarmColor}>
             <div id="timer-label">{this.state.timerType}</div>
-            <div id="time-left">{this.state.warningActive ? '00:00' : this.clockify()}</div>
+            <div id="time-left">
+              {this.state.warningActive ? "00:00" : this.clockify()}
+            </div>
           </div>
         </div>
         <div className={styles.timerControl}>
           <button id="start_stop" onClick={this.timerControl}>
-            {this.state.timerState === 'stopped' ? (
+            {this.state.timerState === "stopped" ? (
               <i className="fa fa-play" />
             ) : (
               <i className="fa fa-pause" />
@@ -398,32 +424,42 @@ class Timer extends React.Component {
           </button>
         </div>
         <div className={styles.customizeAlert}>
-          <button onClick={() => document.querySelector('input[type=file]').click()}>
+          <button
+            onClick={() => document.querySelector("input[type=file]").click()}
+          >
             Customize Alert
           </button>
-          <input 
-            type="file" 
-            accept="audio/mp3" 
-            onChange={this.handleFileChange} 
-            style={{ display: 'none' }}
+          <input
+            type="file"
+            accept="audio/mp3"
+            onChange={this.handleFileChange}
+            style={{ display: "none" }}
           />
-          <button onClick={this.openPopup}>
-            Alert Time
-          </button>
+          <button onClick={this.openPopup}>Alert Time</button>
         </div>
         {this.state.showPopup && (
           <div className={styles.popup}>
             <div className={styles.popupContent}>
-              <span className={styles.close} onClick={this.closePopup}>&times;</span>
-              <h2 className={styles.popupTitle}>Set a time between 6s and 60s</h2>
-              <input 
-                type="number" 
-                min="6" 
-                max="60" 
-                value={this.state.alertDurationInput} 
-                onChange={(e) => this.setState({ alertDurationInput: e.target.value })}
+              <span className={styles.close} onClick={this.closePopup}>
+                &times;
+              </span>
+              <h2 className={styles.popupTitle}>
+                Set a time between 6s and 60s
+              </h2>
+              <input
+                type="number"
+                min="6"
+                max="60"
+                value={this.state.alertDurationInput}
+                onChange={(e) =>
+                  this.setState({ alertDurationInput: e.target.value })
+                }
+                className={styles.popupInput}
               />
-              <button className={styles.popupButton} onClick={this.handleDurationChange}>
+              <button
+                className={styles.popupButton}
+                onClick={this.handleDurationChange}
+              >
                 Set Duration
               </button>
             </div>

@@ -1,4 +1,5 @@
-html, body {
+html,
+body {
   margin: 0;
   padding: 0;
   width: 100%;
@@ -48,22 +49,36 @@ html, body {
 }
 
 #controls .length-control {
-  width: 180px; /* Điều chỉnh kích thước của các phần tử điều khiển chiều dài */
+  width: 180px; /* Điều chỉnh kích thước của các phần tử điều khin chiều dài */
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
 #container button {
-  background: none;
-  outline: black;
-  border: none;
+  background: rgba(255, 255, 255, 0.1);
+  border: 2px solid white;
   color: white;
   cursor: pointer;
+  padding: 10px 20px;
+  border-radius: 25px;
+  font-size: 16px;
+  transition: all 0.3s ease;
+}
+
+#container button:hover {
+  background: rgba(255, 255, 255, 0.2);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+#container button:active {
+  transform: translateY(0);
+  box-shadow: none;
 }
 
 #container button i.fa {
-  margin: 20px; /* Thêm khoảng cách giữa các biểu tượng */
+  margin-right: 8px;
 }
 
 #container .btn-level,
@@ -83,6 +98,7 @@ html, body {
   align-items: center;
   justify-content: center;
   position: relative;
+  box-shadow: 0 0 20px rgba(255, 255, 255, 0.3); /* Thêm hiệu ứng phát sáng */
 }
 
 #container .timer .timer-wrapper {
@@ -114,15 +130,17 @@ footer {
 }
 
 .timerControl button {
-  margin: 0 10px; /* Adds a base margin to all buttons */
+  margin: 0 15px;
 }
 
 #start_stop {
-  margin-right: 20px; /* Adds extra space to the right of the play/pause button */
+  background-color: #4caf50;
+  border-color: #4caf50;
 }
 
 #reset {
-  margin-left: 20px; /* Adds extra space to the left of the reset button */
+  background-color: #f44336;
+  border-color: #f44336;
 }
 
 #container .customizeAlert {
@@ -133,9 +151,9 @@ footer {
 }
 
 #container .customizeAlert button {
-  background-color: #87df2c; /* Màu nền của nút */
-  color: white;
-  border: none;
+  background-color: #87df2c;
+  border-color: #87df2c;
+  margin-right: 15px;
   padding: 10px 20px;
   cursor: pointer;
   border-radius: 5px;
@@ -172,35 +190,55 @@ footer {
 }
 
 .popupContent {
-  background: #1d232a;
-  padding: 20px;
-  border-radius: 5px;
+  background: #2c3e50;
+  padding: 30px;
+  border-radius: 10px;
   position: relative;
+  width: 90%;
+  max-width: 500px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .close {
   position: absolute;
-  top: 10px;
-  right: 10px;
-  font-size: 20px;
+  top: 0px;
+  right: 5px;
+  font-size: 40px;
   cursor: pointer;
-  color: #e6dfdf;
+  color: #ff0000bb;
 }
 
 .popupInput {
-  color: #fff; /* Số thời gian là màu trắng */
-  background-color: #333; /* Nền của ô input để nổi bật */
-  border: 1px solid #55f12ee5; /* Viền của ô input để nổi bật */
+  width: 60%; /* Giảm chiều rộng xuống 60% */
+  max-width: 200px; /* Đặt chiều rộng tối đa */
+  padding: 12px;
+  margin-bottom: 20px; /* Giảm khoảng cách dưới */
+  color: #ecf0f1;
+  background-color: #00050ab0;
+  border: 1px solid #87df2c;
+  border-radius: 5px;
+  font-size: 24px; /* Tăng cỡ chữ lên */
+  text-align: center; /* Căn giữa nội dung */
 }
 
 .popupButton {
-  background-color: #333;
-  color: #fff; /* Nút màu trắng */
+  width: 80%; /* Giảm chiều rộng của nút */
+  background-color: #87df2c; /* Thay đổi màu nền thành #87df2c */
+  color: #fff;
   border: none;
-  padding: 10px 20px;
+  padding: 15px;
+  border-radius: 5px;
   cursor: pointer;
+  font-size: 18px;
+  transition: all 0.3s ease;
+  margin-top: 10px; /* Thêm khoảng cách phía trên nút */
 }
 
 .popupButton:hover {
-  background-color: #555; /* Màu nền khi hover */
+  background-color: #6fbf24; /* Màu tối hơn một chút khi hover */
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
