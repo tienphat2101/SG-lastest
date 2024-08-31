@@ -114,7 +114,7 @@ function ProgressBarPage() {
             marginBottom: "30px",
           }}
         >
-          Work Management
+          Smart List
         </h1>
 
         <div
