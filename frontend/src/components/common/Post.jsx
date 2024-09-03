@@ -128,13 +128,13 @@ const Post = ({ post }) => {
     setInitialPosition({ x: 0, y: 0 });
     setZoom(1);
     setPosition({ x: 0, y: 0 });
-    document.body.style.overflow = 'hidden'; // Ngăn cuộn trang
+    document.body.style.overflow = "hidden"; // Ngăn cuộn trang
   };
 
   const closeImageModal = () => {
     setImageModalOpen(false);
     setSelectedImage("");
-    document.body.style.overflow = 'auto'; // Khôi phục cuộn trang
+    document.body.style.overflow = "auto"; // Khôi phục cuộn trang
   };
 
   const handleDoubleClick = () => {
@@ -173,129 +173,170 @@ const Post = ({ post }) => {
   useEffect(() => {
     // Cleanup: Restore scroll when component unmounts
     return () => {
-      document.body.style.overflow = 'auto';
+      document.body.style.overflow = "auto";
     };
   }, []);
 
   return (
     <>
-      <div className='flex gap-2 items-start p-4 border-b border-gray-700'>
-        <div className='avatar'>
-          <Link to={`/profile/${postOwner.username}`} className='w-8 rounded-full overflow-hidden'>
-            <div className='avatar hidden md:inline-flex'>
-              <div className='w-8 rounded-full'>
+      <div className="flex gap-2 items-start p-4 border-b border-gray-700">
+        <div className="avatar">
+          <Link
+            to={`/profile/${postOwner.username}`}
+            className="w-8 rounded-full overflow-hidden"
+          >
+            <div className="avatar hidden md:inline-flex">
+              <div className="w-8 rounded-full">
                 <img src={postOwner.profileImg || "/avatar-placeholder.png"} />
               </div>
             </div>
           </Link>
         </div>
-        <div className='flex flex-col flex-1'>
-          <div className='flex gap-2 items-center'>
-            <Link to={`/profile/${postOwner.username}`} className='font-bold'>
+        <div className="flex flex-col flex-1">
+          <div className="flex gap-2 items-center">
+            <Link to={`/profile/${postOwner.username}`} className="font-bold">
               {postOwner.fullName}
             </Link>
-            <span className='text-gray-700 flex gap-1 text-sm'>
-              <Link to={`/profile/${postOwner.username}`}>@{postOwner.username}</Link>
+            <span className="text-gray-700 flex gap-1 text-sm">
+              <Link to={`/profile/${postOwner.username}`}>
+                @{postOwner.username}
+              </Link>
               <span>·</span>
               <span>{formattedDate}</span>
             </span>
             {isMyPost && (
-              <span className='flex justify-end flex-1'>
+              <span className="flex justify-end flex-1">
                 {!isDeleting && (
-                  <FaTrash className='cursor-pointer hover:text-red-500' onClick={handleDeletePost} />
+                  <FaTrash
+                    className="cursor-pointer hover:text-red-500"
+                    onClick={handleDeletePost}
+                  />
                 )}
-                {isDeleting && <LoadingSpinner size='sm' />}
+                {isDeleting && <LoadingSpinner size="sm" />}
               </span>
             )}
           </div>
-          <div className='flex flex-col gap-3 overflow-hidden'>
+          <div className="flex flex-col gap-3 overflow-hidden">
             <span>{post.text}</span>
             {post.img && (
               <img
                 src={post.img}
-                className='h-80 object-contain rounded-lg border border-gray-700 cursor-pointer'
-                alt=''
+                className="h-80 object-contain rounded-lg border border-gray-700 cursor-pointer"
+                alt=""
                 onClick={() => openImageModal(post.img)}
               />
             )}
           </div>
-          <div className='flex justify-between mt-3'>
-            <div className='flex gap-4 items-center w-2/3 justify-between'>
+          <div className="flex justify-between mt-3">
+            <div className="flex gap-4 items-center w-2/3 justify-between">
               <div
-                className='flex gap-1 items-center cursor-pointer group'
-                onClick={() => document.getElementById("comments_modal" + post._id).showModal()}
+                className="flex gap-1 items-center cursor-pointer group"
+                onClick={() =>
+                  document
+                    .getElementById("comments_modal" + post._id)
+                    .showModal()
+                }
               >
-                <FaRegComment className='w-4 h-4 text-slate-500 group-hover:text-sky-400' />
-                <span className='text-sm text-slate-500 group-hover:text-sky-400'>
+                <FaRegComment className="w-4 h-4 text-slate-500 group-hover:text-sky-400" />
+                <span className="text-sm text-slate-500 group-hover:text-sky-400">
                   {post.comments.length}
                 </span>
               </div>
-              <dialog id={`comments_modal${post._id}`} className='modal border-none outline-none'>
-                <div className='modal-box rounded border border-gray-600'>
-                  <h3 className='font-bold text-lg mb-4'>BÌNH LUẬN</h3>
-                  <div className='flex flex-col gap-3 max-h-60 overflow-auto'>
-                    {post.comments.length === 0 && (
-                      <p className='text-gray-500 text-sm'>
-                        Chưa có bình luận nào.
+              <dialog
+                id={`comments_modal${post._id}`}
+                className="modal border-none outline-none"
+              >
+                <div className="modal-box rounded-lg border border-gray-700 bg-gray-900 text-white max-w-3xl w-full">
+                  <h3 className="font-bold text-2xl mb-6 text-center">
+                    Bình luận
+                  </h3>
+                  <div className="flex flex-col gap-4 max-h-[60vh] overflow-y-auto pr-4">
+                    {post.comments.length === 0 ? (
+                      <p className="text-gray-400 text-center italic">
+                        Chưa có bình luận nào. Hãy là người đầu tiên bình luận!
                       </p>
-                    )}
-                    {post.comments.map((comment) => (
-                      <div key={comment._id} className='flex gap-2 items-start'>
-                        <div className='avatar'>
-                          <Link to={`/profile/${comment.user.username}`} className='w-8 rounded-full overflow-hidden'>
-                            <div className='avatar hidden md:inline-flex'>
-                              <div className='w-8 rounded-full'>
-                                <img src={comment.user.profileImg || "/avatar-placeholder.png"} />
-                              </div>
+                    ) : (
+                      post.comments.map((comment) => (
+                        <div
+                          key={comment._id}
+                          className="flex gap-3 items-start bg-gray-800 p-4 rounded-lg"
+                        >
+                          <Link
+                            to={`/profile/${comment.user.username}`}
+                            className="shrink-0"
+                          >
+                            <div className="w-10 h-10 rounded-full overflow-hidden">
+                              <img
+                                src={
+                                  comment.user.profileImg ||
+                                  "/avatar-placeholder.png"
+                                }
+                                alt={comment.user.username}
+                                className="w-full h-full object-cover"
+                              />
                             </div>
                           </Link>
-                        </div>
-                        <div className='flex flex-col flex-1'>
-                          <div className='flex gap-2 items-center'>
-                            <Link to={`/profile/${comment.user.username}`} className='font-bold'>
-                              {comment.user.fullName}
-                            </Link>
-                            <span className='text-gray-700 flex gap-1 text-sm'>
-                              <Link to={`/profile/${comment.user.username}`}>@{comment.user.username}</Link>
-                              <span>·</span>
-                              <span>{formatPostDate(comment.createdAt)}</span>
-                            </span>
+                          <div className="flex-1">
+                            <div className="flex items-center gap-2 mb-1">
+                              <Link
+                                to={`/profile/${comment.user.username}`}
+                                className="font-semibold hover:underline"
+                              >
+                                {comment.user.fullName}
+                              </Link>
+                              <span className="text-gray-400 text-sm">
+                                @{comment.user.username}
+                              </span>
+                              <span className="text-gray-400 text-xs">•</span>
+                              <span className="text-gray-400 text-xs">
+                                {formatPostDate(comment.createdAt)}
+                              </span>
+                            </div>
+                            <p className="text-sm">{comment.text}</p>
                           </div>
-                          <div className='text-sm'>{comment.text}</div>
                         </div>
-                      </div>
-                    ))}
+                      ))
+                    )}
                   </div>
                   <form
-                    className='flex gap-2 items-center mt-4 border-t border-gray-600 pt-2'
+                    className="mt-6 flex gap-3 items-center border-t border-gray-700 pt-4"
                     onSubmit={handlePostComment}
                   >
                     <textarea
-                      className='textarea w-full p-1 rounded text-md resize-none border focus:outline-none border-gray-800'
-                      placeholder='Thêm bình luận...'
+                      className="flex-1 bg-gray-800 border border-gray-700 rounded-lg p-3 text-sm resize-none focus:outline-none focus:ring-2 focus:ring-lime-500"
+                      placeholder="Thêm bình luận của bạn..."
+                      rows={2}
                       value={comment}
                       onChange={(e) => setComment(e.target.value)}
                     />
-                    <button className='btn btn-primary rounded-full btn-sm text-white px-4'>
-                      {isCommenting ? <LoadingSpinner size='md' /> : "Đăng"}
+                    <button
+                      className="bg-lime-500 hover:bg-lime-600 text-black font-semibold px-4 py-2 rounded-full transition duration-200 ease-in-out"
+                      disabled={isCommenting}
+                    >
+                      {isCommenting ? <LoadingSpinner size="sm" /> : "Đăng"}
                     </button>
                   </form>
                 </div>
-                <form method='dialog' className='modal-backdrop'>
-                  <button className='outline-none'>đóng</button>
+                <form method="dialog" className="modal-backdrop">
+                  <button className="cursor-default">đóng</button>
                 </form>
               </dialog>
-              <div className='flex gap-1 items-center group cursor-pointer'>
-                <BiRepost className='w-6 h-6 text-slate-500 group-hover:text-green-500' />
-                <span className='text-sm text-slate-500 group-hover:text-green-500'>0</span>
+              <div className="flex gap-1 items-center group cursor-pointer">
+                <BiRepost className="w-6 h-6 text-slate-500 group-hover:text-green-500" />
+                <span className="text-sm text-slate-500 group-hover:text-green-500">
+                  0
+                </span>
               </div>
-              <div className='flex gap-1 items-center group cursor-pointer' onClick={handleLikePost}>
-                {isLiking && <LoadingSpinner size='sm' />}
+              <div
+                className="flex gap-1 items-center group cursor-pointer"
+                onClick={handleLikePost}
+              >
+                {isLiking && <LoadingSpinner size="sm" />}
                 {!isLiked && !isLiking && (
-                  <FaRegHeart className='w-4 h-4 cursor-pointer text-slate-500 group-hover:text-pink-500' />
+                  <FaRegHeart className="w-4 h-4 cursor-pointer text-slate-500 group-hover:text-pink-500" />
                 )}
                 {isLiked && !isLiking && (
-                  <FaRegHeart className='w-4 h-4 cursor-pointer text-pink-500 ' />
+                  <FaRegHeart className="w-4 h-4 cursor-pointer text-pink-500 " />
                 )}
                 <span
                   className={`text-sm group-hover:text-pink-500 ${
@@ -306,8 +347,8 @@ const Post = ({ post }) => {
                 </span>
               </div>
             </div>
-            <div className='flex w-1/3 justify-end gap-2 items-center'>
-              <FaRegBookmark className='w-4 h-4 text-slate-500 cursor-pointer' />
+            <div className="flex w-1/3 justify-end gap-2 items-center">
+              <FaRegBookmark className="w-4 h-4 text-slate-500 cursor-pointer" />
             </div>
           </div>
         </div>
@@ -315,30 +356,30 @@ const Post = ({ post }) => {
 
       {/* Modal cho hình ảnh phóng to */}
       {isImageModalOpen && (
-        <div className='fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50'>
+        <div className="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50">
           <div
-            className='relative p-4 rounded-lg'
+            className="relative p-4 rounded-lg"
             style={{
-              width: '70%',
-              height: '70%',
-              backgroundColor: '#191919',
-              overflow: 'hidden', // Prevent overflow
+              width: "70%",
+              height: "70%",
+              backgroundColor: "#191919",
+              overflow: "hidden", // Prevent overflow
             }}
           >
             <img
               src={selectedImage}
               ref={imageRef}
-              className='absolute'
-              alt='Enlarged'
+              className="absolute"
+              alt="Enlarged"
               style={{
                 transform: `scale(${zoom}) translate(${position.x}px, ${position.y}px)`,
-                transformOrigin: 'center center', // Center transform origin
-                cursor: 'grab',
-                maxWidth: '100%', // Ensure image doesn't exceed container width
-                maxHeight: '100%', // Ensure image doesn't exceed container height
-                position: 'absolute',
-                top: '50%',
-                left: '50%',
+                transformOrigin: "center center", // Center transform origin
+                cursor: "grab",
+                maxWidth: "100%", // Ensure image doesn't exceed container width
+                maxHeight: "100%", // Ensure image doesn't exceed container height
+                position: "absolute",
+                top: "50%",
+                left: "50%",
                 transform: `translate(-50%, -50%) scale(${zoom}) translate(${position.x}px, ${position.y}px)`,
               }}
               onMouseDown={handleMouseDown}
@@ -346,22 +387,22 @@ const Post = ({ post }) => {
             />
             <button
               style={{
-                position: 'absolute',
-                top: '10px',
-                right: '10px',
-                backgroundColor: '#d3d3d3',
-                color: '#4a4a4a',
-                borderRadius: '50%',
-                width: '24px',
-                height: '24px',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                fontSize: '16px',
-                fontWeight: 'bold',
-                cursor: 'pointer',
-                border: 'none',
-                zIndex: 1000
+                position: "absolute",
+                top: "10px",
+                right: "10px",
+                backgroundColor: "#d3d3d3",
+                color: "#4a4a4a",
+                borderRadius: "50%",
+                width: "24px",
+                height: "24px",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                fontSize: "16px",
+                fontWeight: "bold",
+                cursor: "pointer",
+                border: "none",
+                zIndex: 1000,
               }}
               onClick={closeImageModal}
             >

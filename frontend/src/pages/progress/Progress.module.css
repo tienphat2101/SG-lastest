@@ -1,54 +1,55 @@
 .container {
-    max-width: 661px; /* adjust the width to your liking */
-    margin: 40px auto; /* add some margin and center the container */
-    padding: 20px;
-    background-color: #f9f9f9; /* add a light gray background */
-    border: 1px solid #ddd; /* add a subtle border */
-    border-radius: 10px; /* add some rounded corners */
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* add a subtle shadow */
-  }
-  
-  h1, h2 {
-    margin-bottom: 10px; /* add some space between headings */
-  }
-  
-  input[type="text"] {
-    width: 50%; /* make the input fields wider */
-    padding: 10px;
-    margin-bottom: 20px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-  }
-  
-  button {
-    padding: 10px 20px;
-    background-color: #4CAF50; /* add a green background */
-    color: #fff;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-  }
-  
-  button:hover {
-    background-color: #3e8e41; /* add a hover effect */
-  }
-  
-  ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-  }
-  
-  li {
-    margin-bottom: 10px;
-  }
-  
-  li input[type="checkbox"] {
-    margin-right: 10px;
-  }
-  
-  progress {
-    width: 50%; /* make the progress bar wider */
-    height: 20px;
-    margin-bottom: 10px;
-  }
+  max-width: 661px; /* adjust the width to your liking */
+  margin: 40px auto; /* add some margin and center the container */
+  padding: 20px;
+  background-color: #f9f9f9; /* add a light gray background */
+  border: 1px solid #ddd; /* add a subtle border */
+  border-radius: 10px; /* add some rounded corners */
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* add a subtle shadow */
+}
+
+h1,
+h2 {
+  margin-bottom: 10px; /* add some space between headings */
+}
+
+input[type="text"] {
+  width: 50%; /* make the input fields wider */
+  padding: 10px;
+  margin-bottom: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+button {
+  padding: 10px 20px;
+  background-color: #4caf50; /* add a green background */
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #3e8e41; /* add a hover effect */
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+li {
+  margin-bottom: 10px;
+}
+
+li input[type="checkbox"] {
+  margin-right: 10px;
+}
+
+progress {
+  width: 50%; /* make the progress bar wider */
+  height: 20px;
+  margin-bottom: 10px;
+}
