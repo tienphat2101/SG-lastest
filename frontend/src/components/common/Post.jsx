@@ -41,7 +41,7 @@ const Post = ({ post }) => {
       }
     },
     onSuccess: () => {
-      toast.success("Đã xóa bài viết thành công");
+      toast.success("Post deleted successfully");
       queryClient.invalidateQueries({ queryKey: ["posts"] });
     },
   });
@@ -97,7 +97,7 @@ const Post = ({ post }) => {
       }
     },
     onSuccess: () => {
-      toast.success("Đã đăng bình luận thành công");
+      toast.success("Comment posted successfully");
       setComment("");
       queryClient.invalidateQueries({ queryKey: ["posts"] });
     },
@@ -248,12 +248,12 @@ const Post = ({ post }) => {
               >
                 <div className="modal-box rounded-lg border border-gray-700 bg-gray-900 text-white max-w-3xl w-full">
                   <h3 className="font-bold text-2xl mb-6 text-center">
-                    Bình luận
+                    Comments
                   </h3>
                   <div className="flex flex-col gap-4 max-h-[60vh] overflow-y-auto pr-4">
                     {post.comments.length === 0 ? (
                       <p className="text-gray-400 text-center italic">
-                        Chưa có bình luận nào. Hãy là người đầu tiên bình luận!
+                        No comments yet. Be the first to comment!
                       </p>
                     ) : (
                       post.comments.map((comment) => (
@@ -304,7 +304,7 @@ const Post = ({ post }) => {
                   >
                     <textarea
                       className="flex-1 bg-gray-800 border border-gray-700 rounded-lg p-3 text-sm resize-none focus:outline-none focus:ring-2 focus:ring-lime-500"
-                      placeholder="Thêm bình luận của bạn..."
+                      placeholder="Add your comment..."
                       rows={2}
                       value={comment}
                       onChange={(e) => setComment(e.target.value)}
@@ -313,12 +313,12 @@ const Post = ({ post }) => {
                       className="bg-lime-500 hover:bg-lime-600 text-black font-semibold px-4 py-2 rounded-full transition duration-200 ease-in-out"
                       disabled={isCommenting}
                     >
-                      {isCommenting ? <LoadingSpinner size="sm" /> : "Đăng"}
+                      {isCommenting ? <LoadingSpinner size="sm" /> : "Post"}
                     </button>
                   </form>
                 </div>
                 <form method="dialog" className="modal-backdrop">
-                  <button className="cursor-default">đóng</button>
+                  <button className="cursor-default">close</button>
                 </form>
               </dialog>
               <div className="flex gap-1 items-center group cursor-pointer">
@@ -356,58 +356,47 @@ const Post = ({ post }) => {
 
       {/* Modal cho hình ảnh phóng to */}
       {isImageModalOpen && (
-        <div className="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50">
-          <div
-            className="relative p-4 rounded-lg"
-            style={{
-              width: "70%",
-              height: "70%",
-              backgroundColor: "#191919",
-              overflow: "hidden", // Prevent overflow
-            }}
-          >
+        <div className="fixed inset-0 bg-black bg-opacity-95 flex items-center justify-center z-50 backdrop-blur-sm">
+          <div className="relative w-full h-full flex items-center justify-center">
             <img
               src={selectedImage}
               ref={imageRef}
-              className="absolute"
-              alt="Enlarged"
+              className="max-w-[95%] max-h-[95%] object-contain rounded-lg shadow-2xl"
+              alt="Enlarged image"
               style={{
                 transform: `scale(${zoom}) translate(${position.x}px, ${position.y}px)`,
-                transformOrigin: "center center", // Center transform origin
-                cursor: "grab",
-                maxWidth: "100%", // Ensure image doesn't exceed container width
-                maxHeight: "100%", // Ensure image doesn't exceed container height
-                position: "absolute",
-                top: "50%",
-                left: "50%",
-                transform: `translate(-50%, -50%) scale(${zoom}) translate(${position.x}px, ${position.y}px)`,
+                transition: "transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1)",
+                cursor: zoom === 1 ? "default" : "grab",
               }}
               onMouseDown={handleMouseDown}
-              onDoubleClick={handleDoubleClick} // Add onDoubleClick event
+              onDoubleClick={handleDoubleClick}
             />
             <button
-              style={{
-                position: "absolute",
-                top: "10px",
-                right: "10px",
-                backgroundColor: "#d3d3d3",
-                color: "#4a4a4a",
-                borderRadius: "50%",
-                width: "24px",
-                height: "24px",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                fontSize: "16px",
-                fontWeight: "bold",
-                cursor: "pointer",
-                border: "none",
-                zIndex: 1000,
-              }}
+              className="absolute top-4 right-4 bg-[#87df2c] bg-opacity-80 hover:bg-opacity-100 text-black rounded-full p-2 transition duration-300 transform hover:rotate-90"
               onClick={closeImageModal}
             >
-              ×
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="h-6 w-6"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M6 18L18 6M6 6l12 12"
+                />
+              </svg>
             </button>
+            <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 bg-[#87df2c] text-black rounded-full px-6 py-3 text-sm font-semibold shadow-lg">
+              <span className="mr-2">🔍</span>
+              Double-click to zoom in/out • Drag to move
+            </div>
+            <div className="absolute top-4 left-4 bg-[#87df2c] bg-opacity-80 rounded-full px-4 py-2 text-black text-sm font-semibold">
+              Zoom: {Math.round(zoom * 100)}%
+            </div>
           </div>
         </div>
       )}
